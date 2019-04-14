@@ -11,6 +11,7 @@ const contains = ({ name, email }, query) => {
 };
 
 export const getUsers = (limit = 20, query = "") => {
+    console.log("api called " + query);
     return new Promise((resolve, reject) => {
         if (query.length === 0) {
             resolve(_.take(users, limit));

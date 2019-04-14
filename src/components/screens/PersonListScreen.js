@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import {
     View,
     FlatList,
-    ActivityIndicator,
-    SafeAreaView
+    ActivityIndicator
 } from "react-native";
 import { ListItem, SearchBar } from "react-native-elements";
-import { getUsers } from "../../api";
+import _ from 'lodash';
+
+import { getUsers, contains } from "../../api";
 
 class PersonListScreen extends Component {
 
 
     static navigationOptions = () => {
         return {
-            title: 'Поиск по отрудникам и преподаватели'
+            title: 'Поиск по преподавателям и сотрудникам'
         };
     };
 
@@ -24,28 +25,35 @@ class PersonListScreen extends Component {
         this.state = {
             loading: false,
             data: [],
-            error: null
+            error: null,
+            searchString: '',
+            fullData: []
         };
     }
+
+    handleSearchStringChange = (text) => {
+        this.setState({ searchString: text }, () => this.makeRemoteRequest())
+    };
 
     componentDidMount() {
         this.makeRemoteRequest();
     }
 
-    makeRemoteRequest = () => {
+    makeRemoteRequest = _.debounce(() => {
         this.setState({ loading: true });
 
-        getUsers()
+        getUsers(20, this.state.searchString)
             .then(users => {
                 this.setState({
                     loading: false,
-                    data: users
+                    data: users,
+                    fullData: users
                 });
             })
             .catch(error => {
                 this.setState({ error, loading: false });
             });
-    };
+    }, 250);
 
     renderSeparator = () => {
         return (
@@ -61,7 +69,18 @@ class PersonListScreen extends Component {
     };
 
     renderHeader = () => {
-        return <SearchBar placeholder="Type Here..." lightTheme round/>;
+        const { searchString } = this.state;
+
+        return (
+            <SearchBar
+                platform={ "android" }
+                placeholder="Введите текст..."
+                lightTheme
+                round
+                onChangeText={ this.handleSearchStringChange }
+                value={ searchString }
+            />
+        );
     };
 
     renderFooter = () => {
@@ -96,16 +115,16 @@ class PersonListScreen extends Component {
     render() {
 
         return (
-            <SafeAreaView>
+            <View>
                 <FlatList
                     data={ this.state.data }
                     renderItem={ this.renderItem }
                     keyExtractor={ item => item.email }
                     ItemSeparatorComponent={ this.renderSeparator }
-                    ListHeaderComponent={ this.renderHeader }
+                    ListHeaderComponent={ this.renderHeader() }
                     ListFooterComponent={ this.renderFooter }
                 />
-            </SafeAreaView>
+            </View>
         );
     }
 }
