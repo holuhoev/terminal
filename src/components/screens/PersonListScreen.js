@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import {
     View,
     FlatList,
     ActivityIndicator
 } from "react-native";
 import { ListItem, SearchBar } from "react-native-elements";
-import _ from 'lodash';
 
-import { getUsers, contains } from "../../api";
+import { changePersonsSearchParams, loadPersons } from "../../store/reducers/persons";
+
 
 class PersonListScreen extends Component {
-
 
     static navigationOptions = () => {
         return {
@@ -19,57 +20,30 @@ class PersonListScreen extends Component {
     };
 
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loading: false,
-            data: [],
-            error: null,
-            searchString: '',
-            fullData: []
-        };
-    }
-
-    handleSearchStringChange = (text) => {
-        this.setState({ searchString: text }, () => this.makeRemoteRequest())
-    };
-
     componentDidMount() {
-        this.makeRemoteRequest();
+        this.props.loadPersons({});
     }
 
-    makeRemoteRequest = _.debounce(() => {
-        this.setState({ loading: true });
 
-        getUsers(20, this.state.searchString)
-            .then(users => {
-                this.setState({
-                    loading: false,
-                    data: users,
-                    fullData: users
-                });
-            })
-            .catch(error => {
-                this.setState({ error, loading: false });
-            });
-    }, 250);
+    handleSearchParamsChange = (searchQuery, page) => {
+        this.props.changePersonsSearchParams({ searchQuery, page })
+    };
 
     renderSeparator = () => {
         return (
             <View
                 style={ {
-                    height: 1,
-                    width: "86%",
+                    height:          1,
+                    width:           "86%",
                     backgroundColor: "#CED0CE",
-                    marginLeft: "14%"
+                    marginLeft:      "14%"
                 } }
             />
         );
     };
 
     renderHeader = () => {
-        const { searchString } = this.state;
+        const { searchString, page } = this.props;
 
         return (
             <SearchBar
@@ -77,21 +51,21 @@ class PersonListScreen extends Component {
                 placeholder="Введите текст..."
                 lightTheme
                 round
-                onChangeText={ this.handleSearchStringChange }
+                onChangeText={ text => this.handleSearchParamsChange(text, page) }
                 value={ searchString }
             />
         );
     };
 
     renderFooter = () => {
-        if (!this.state.loading) return null;
+        if (!this.props.loading) return null;
 
         return (
             <View
                 style={ {
                     paddingVertical: 20,
-                    borderTopWidth: 1,
-                    borderColor: "#CED0CE"
+                    borderTopWidth:  1,
+                    borderColor:     "#CED0CE"
                 } }
             >
                 <ActivityIndicator animating size="large"/>
@@ -117,7 +91,7 @@ class PersonListScreen extends Component {
         return (
             <View>
                 <FlatList
-                    data={ this.state.data }
+                    data={ this.props.data }
                     renderItem={ this.renderItem }
                     keyExtractor={ item => item.email }
                     ItemSeparatorComponent={ this.renderSeparator }
@@ -129,5 +103,19 @@ class PersonListScreen extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    loading:      state.persons.loading,
+    data:         state.persons.personList,
+    searchString: state.persons.searchQuery,
+    error:        state.persons.error,
+    page:         state.persons.page
+});
 
-export default PersonListScreen;
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    changePersonsSearchParams: changePersonsSearchParams,
+    loadPersons:               loadPersons
+
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(PersonListScreen);

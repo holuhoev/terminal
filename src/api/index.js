@@ -3,24 +3,21 @@ import users from "./users";
 
 const contains = ({ name, email }, query) => {
     const { first, last } = name;
-    if (first.includes(query) || last.includes(query) || email.includes(query)) {
-        return true;
-    }
-
-    return false;
+    return !!(first.includes(query) || last.includes(query) || email.includes(query));
 };
 
-export const getUsers = (limit = 20, query = "") => {
-    console.log("api called " + query);
+export const getUsers = ({ searchQuery = "", page  = 0}) => {
+    console.log("api called " + searchQuery + " | " + page);
+
     return new Promise((resolve, reject) => {
-        if (query.length === 0) {
-            resolve(_.take(users, limit));
+        if (searchQuery.length === 0) {
+            resolve(_.take(users, 10));
         } else {
-            const formattedQuery = query.toLowerCase();
-            const results = _.filter(users, user => {
+            const formattedQuery = searchQuery.toLowerCase();
+            const results        = _.filter(users, user => {
                 return contains(user, formattedQuery);
             });
-            resolve(_.take(results, limit));
+            resolve(_.take(results, 10));
         }
     });
 };
