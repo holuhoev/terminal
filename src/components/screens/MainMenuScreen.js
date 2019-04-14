@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TouchableNativeFeedback } from 'react-native';
 
+import { ROUTES } from "../../routes";
+
+
 class MainMenuScreen extends Component {
+
+    static navigationOptions = () => {
+        return {
+            title: 'Главное меню'
+        };
+    };
 
     render() {
 
         return (
             <View style={ styles.container }>
-                <TouchableNativeFeedback>
+                <TouchableNativeFeedback
+                    onPress={ () => this.props.navigation.navigate(ROUTES.PersonList) }
+                >
                     <View style={ [styles.cell, styles.blue] }>
-                        <Text style={ styles.title }>Сотрудники и Преподаватели</Text>
+                        <Text style={ styles.title }>Преподаватели и сотрудники</Text>
                     </View>
                 </TouchableNativeFeedback>
                 <TouchableNativeFeedback>
@@ -33,8 +44,8 @@ const styles = StyleSheet.create({
         paddingVertical: 20
     },
     cell: {
-        height: 150,
-        width: 150,
+        height: 160,
+        width: 160,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 10
