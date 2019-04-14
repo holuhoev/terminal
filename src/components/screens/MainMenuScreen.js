@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableNativeFeedback } from 'react-native';
 
-class MainMenu extends Component {
+class MainMenuScreen extends Component {
 
     render() {
 
         return (
             <View style={ styles.container }>
-                <View style={ [styles.cell, styles.blue] }>
-                    <Text style={ styles.title }>Сотрудники и Преподаватели</Text>
-                </View>
-                <View style={ [styles.cell, styles.blue2] }>
-                    <Text style={ styles.title }>Новости</Text>
-                </View>
+                <TouchableNativeFeedback>
+                    <View style={ [styles.cell, styles.blue] }>
+                        <Text style={ styles.title }>Сотрудники и Преподаватели</Text>
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback>
+                    <View style={ [styles.cell, styles.blue2] }>
+                        <Text style={ styles.title }>Новости</Text>
+                    </View>
+                </TouchableNativeFeedback>
             </View>
         );
     }
@@ -32,7 +36,8 @@ const styles = StyleSheet.create({
         height: 150,
         width: 150,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderRadius: 10
     },
     blue: {
         backgroundColor: 'royalblue'
@@ -46,10 +51,10 @@ const styles = StyleSheet.create({
     title: {
         color: '#FFF',
         fontSize: 18,
-        fontWeight:'bold',
+        fontWeight: 'bold',
         textAlign: 'center'
     }
 
 });
 
-export default MainMenu;
+export default MainMenuScreen;

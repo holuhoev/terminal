@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
-import MenuPage from "./pages/MainMenu";
+import React from 'react';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import MainMenuScreen from "./screens/MainMenuScreen";
 
-type Props = {};
-
-export default class App extends Component<Props> {
-
-    render() {
-
-        return (
-            <MenuPage/>
-        );
+const MainNavigator = createStackNavigator({
+        MainMenu: { screen: MainMenuScreen },
+    },
+    {
+        initialRouteName: 'MainMenu'
     }
-}
+);
+
+const App = createAppContainer(MainNavigator);
+
+export default App;
