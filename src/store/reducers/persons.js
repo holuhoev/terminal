@@ -1,16 +1,18 @@
 import { createAction } from "../utils";
 
-export const LOAD                 = 'terminal/persons/LOAD';
-export const CHANGE_SEARCH_PARAMS = 'terminal/persons/CHANGE_SEARCH_PARAMS';
-const LOAD_SUCCESS                = 'terminal/persons/LOAD_SUCCESS';
-const LOAD_FAILED                 = 'terminal/persons/LOAD_FAILED';
+export const LOAD                = 'terminal/persons/LOAD';
+export const LOAD_MORE           = 'terminal/persons/LOAD_MORE';
+export const CHANGE_SEARCH_QUERY = 'terminal/persons/CHANGE_SEARCH_QUERY';
+
+export const LOAD_SUCCESS = 'terminal/persons/LOAD_SUCCESS';
+export const LOAD_FAILED  = 'terminal/persons/LOAD_FAILED';
 
 const initialState = {
     loading:     false,
     personList:  [],
     searchQuery: '',
     error:       null,
-    page:        0
+    page:        -1
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -19,7 +21,15 @@ const reducer = (state = initialState, action = {}) => {
 
             return {
                 ...state,
-                loading: true
+                loading: true,
+                page:    0
+            };
+
+        case  LOAD_MORE:
+
+            return {
+                ...state,
+                page: state.page + 1
             };
 
         case LOAD_SUCCESS:
@@ -27,22 +37,24 @@ const reducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 loading:    false,
-                personList: action.payload
+                personList: [...state.personList, ...action.payload]
             };
+
         case LOAD_FAILED:
 
             return {
                 ...state,
                 loading: false,
-                error:   action.payload
+                error:   action.payload,
+                page:    state.page > 0 ? state.page - 1 : state.page
             };
 
-        case CHANGE_SEARCH_PARAMS:
+        case CHANGE_SEARCH_QUERY:
 
             return {
                 ...state,
-                searchQuery: action.payload.searchQuery,
-                page:        action.payload.page
+                searchQuery: action.payload,
+                personList:  []
             };
 
         default:
@@ -52,7 +64,6 @@ const reducer = (state = initialState, action = {}) => {
 
 export default reducer;
 
-export const loadPersons               = createAction(LOAD);
-export const changePersonsSearchParams = createAction(CHANGE_SEARCH_PARAMS);
-export const loadPersonsSuccess        = createAction(LOAD_SUCCESS);
-export const loadPersonsFailed         = createAction(LOAD_FAILED);
+export const loadPersons              = createAction(LOAD);
+export const loadMorePersons          = createAction(LOAD_MORE);
+export const changePersonsSearchQuery = createAction(CHANGE_SEARCH_QUERY);

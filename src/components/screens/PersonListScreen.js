@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {
@@ -7,8 +7,10 @@ import {
     ActivityIndicator
 } from "react-native";
 import { ListItem, SearchBar } from "react-native-elements";
+import { isNil, isEmpty } from "ramda";
 
-import { changePersonsSearchParams, loadPersons } from "../../store/reducers/persons";
+import { changePersonsSearchQuery, loadMorePersons, loadPersons } from "../../store/reducers/persons";
+import PersonListItem from "../common/PersonListItem";
 
 
 class PersonListScreen extends Component {
@@ -21,13 +23,11 @@ class PersonListScreen extends Component {
 
 
     componentDidMount() {
-        this.props.loadPersons({});
+        if (this.isDataEmpty) {
+            this.loadPersons();
+        }
     }
 
-
-    handleSearchParamsChange = (searchQuery, page) => {
-        this.props.changePersonsSearchParams({ searchQuery, page })
-    };
 
     renderSeparator = () => {
         return (
@@ -43,7 +43,7 @@ class PersonListScreen extends Component {
     };
 
     renderHeader = () => {
-        const { searchString, page } = this.props;
+        const { searchQuery } = this.props;
 
         return (
             <SearchBar
@@ -51,8 +51,8 @@ class PersonListScreen extends Component {
                 placeholder="Введите текст..."
                 lightTheme
                 round
-                onChangeText={ text => this.handleSearchParamsChange(text, page) }
-                value={ searchString }
+                onChangeText={ text => this.props.changePersonsSearchQuery(text) }
+                value={ searchQuery }
             />
         );
     };
@@ -75,18 +75,52 @@ class PersonListScreen extends Component {
 
     renderItem = ({ item }) => {
 
+
         return (
-            <ListItem
-                roundAvatar
-                title={ `${ item.name.first } ${ item.name.last }` }
-                subtitle={ item.email }
-                leftAvatar={ { source: { uri: item.picture.thumbnail } } }
-                containerStyle={ { borderBottomWidth: 0 } }
+            <PersonListItem
+                firstName={ item.name.first }
+                lastName={ item.name.last }
+                email={ item.email }
+                avatarUrl={ item.picture.thumbnail }
             />
         )
     };
 
+    loadPersons = () => {
+        const { loadPersons, searchQuery } = this.props;
+        loadPersons(searchQuery);
+    };
+
+    loadMorePersons = () => {
+        console.log("on end reach invoked");
+        const { loadMorePersons, searchQuery, loading } = this.props;
+        if (!loading) {
+            console.log("load more ")
+            loadMorePersons(searchQuery);
+        }
+
+    };
+
+    get isDataEmpty() {
+        const { data } = this.props;
+
+        return isNil(data) || isEmpty(data);
+    }
+
     render() {
+
+
+        if (this.isDataEmpty) {
+
+            return (
+                <View>
+                    <FlatList
+                        ListHeaderComponent={ this.renderHeader() }
+                        ListFooterComponent={ this.renderFooter }
+                    />
+                </View>
+            )
+        }
 
         return (
             <View>
@@ -97,6 +131,8 @@ class PersonListScreen extends Component {
                     ItemSeparatorComponent={ this.renderSeparator }
                     ListHeaderComponent={ this.renderHeader() }
                     ListFooterComponent={ this.renderFooter }
+                    onEndReached={ this.loadMorePersons }
+                    onEndReachedThreshold={ 0.3 }
                 />
             </View>
         );
@@ -104,18 +140,17 @@ class PersonListScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-    loading:      state.persons.loading,
-    data:         state.persons.personList,
-    searchString: state.persons.searchQuery,
-    error:        state.persons.error,
-    page:         state.persons.page
+    loading:     state.persons.loading,
+    data:        state.persons.personList,
+    searchQuery: state.persons.searchQuery,
+    error:       state.persons.error
 });
 
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    changePersonsSearchParams: changePersonsSearchParams,
-    loadPersons:               loadPersons
-
+    changePersonsSearchQuery: changePersonsSearchQuery,
+    loadPersons:              loadPersons,
+    loadMorePersons:          loadMorePersons
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PersonListScreen);
