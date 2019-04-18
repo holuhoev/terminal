@@ -78,10 +78,9 @@ class PersonListScreen extends Component {
 
         return (
             <PersonListItem
-                firstName={ item.name.first }
-                lastName={ item.name.last }
+                fio={ item.fio }
                 email={ item.email }
-                avatarUrl={ item.picture.thumbnail }
+                avatarUrl='https://randomuser.me/api/portraits/thumb/men/92.jpg'
             />
         )
     };
@@ -92,13 +91,10 @@ class PersonListScreen extends Component {
     };
 
     loadMorePersons = () => {
-        console.log("on end reach invoked");
         const { loadMorePersons, searchQuery, loading } = this.props;
         if (!loading) {
-            console.log("load more ")
             loadMorePersons(searchQuery);
         }
-
     };
 
     get isDataEmpty() {
@@ -127,7 +123,7 @@ class PersonListScreen extends Component {
                 <FlatList
                     data={ this.props.data }
                     renderItem={ this.renderItem }
-                    keyExtractor={ item => item.email }
+                    keyExtractor={ item => item.id }
                     ItemSeparatorComponent={ this.renderSeparator }
                     ListHeaderComponent={ this.renderHeader() }
                     ListFooterComponent={ this.renderFooter }

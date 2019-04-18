@@ -4,12 +4,12 @@ import { ListItem } from "react-native-elements";
 class PersonListItem extends React.PureComponent {
 
     render() {
-        const { firstName, lastName, email, avatarUrl } = this.props;
+        const { fio, email, avatarUrl } = this.props;
 
         return (
             <ListItem
                 roundAvatar
-                title={ `${ firstName } ${ lastName }` }
+                title={ fio }
                 subtitle={ email }
                 leftAvatar={ { source: { uri: avatarUrl } } }
                 containerStyle={ { borderBottomWidth: 0 } }

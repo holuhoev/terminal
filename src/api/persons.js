@@ -1,26 +1,22 @@
-import _ from "lodash";
-import { slice } from "ramda";
+import axios from 'axios';
+import { propOr } from 'ramda';
 
-import users from "./users";
+import { GET_PERSONS } from "../utils/url";
 
-
-const contains = ({ name, email }, query) => {
-    const { first, last } = name;
-    return !!(first.includes(query) || last.includes(query) || email.includes(query));
-};
 
 export const getPersons = ({ searchQuery, page }) => {
-    console.log("api called " + searchQuery + " | " + page);
+    console.log("get persons " + searchQuery + " | " + page);
 
-    return new Promise((resolve, reject) => {
-        if (searchQuery.length === 0) {
-            resolve(slice(page * 30, (page + 1) * 30, users));
-        } else {
-            const formattedQuery = searchQuery.toLowerCase();
-            const results        = _.filter(users, user => {
-                return contains(user, formattedQuery);
-            });
-            resolve(slice(page * 30, (page + 1) * 30, results));
-        }
-    });
+    return axios
+        .get(GET_PERSONS, {
+            params: {
+                fio:  searchQuery,
+                page: page
+            }
+        })
+        .then(response => propOr([], 'data', response))
+        .catch(err => {
+            console.error(`GET ${ GET_PERSONS } ${ err }`);
+            return Promise.reject(err);
+        })
 };

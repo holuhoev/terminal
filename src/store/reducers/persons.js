@@ -46,7 +46,7 @@ const reducer = (state = initialState, action = {}) => {
                 ...state,
                 loading: false,
                 error:   action.payload,
-                page:    state.page > 0 ? state.page - 1 : state.page
+                page:    state.page - 1
             };
 
         case CHANGE_SEARCH_QUERY:
