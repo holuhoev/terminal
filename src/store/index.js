@@ -1,11 +1,13 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
-import persons from './reducers/persons';
 import createSagaMiddleware from 'redux-saga'
 
+import persons from './reducers/persons';
+import chairs from './reducers/chairs';
 import sagas from './sagas'
 
 const rootReducer = combineReducers({
-    persons
+    persons,
+    chairs
 });
 
 const sagaMiddleware = createSagaMiddleware();

@@ -1,18 +1,39 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableNativeFeedback } from 'react-native';
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { StyleSheet, View, Text, TouchableNativeFeedback, ActivityIndicator } from 'react-native';
 
 import { ROUTES } from "../../routes";
+import { loadChairs } from "../../store/reducers/chairs";
 
 
 class MainMenuScreen extends Component {
 
     static navigationOptions = () => {
+
         return {
             title: 'Главное меню'
         };
     };
 
+    componentDidMount() {
+        this.props.loadChairs();
+    }
+
     render() {
+        if (this.props.loading) {
+            return (
+                <View
+                    style={ {
+                        paddingVertical: 20,
+                        borderTopWidth:  1,
+                        borderColor:     "#CED0CE"
+                    } }
+                >
+                    <ActivityIndicator animating size="large"/>
+                </View>
+            )
+        }
 
         return (
             <View style={ styles.container }>
@@ -35,37 +56,47 @@ class MainMenuScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex:            1,
         backgroundColor: '#F5FCFF',
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'flex-start',
+        flexWrap:        'wrap',
+        flexDirection:   'row',
+        justifyContent:  'space-around',
+        alignItems:      'flex-start',
         paddingVertical: 20
     },
-    cell: {
-        height: 160,
-        width: 160,
-        alignItems: 'center',
+    cell:      {
+        height:         160,
+        width:          160,
+        alignItems:     'center',
         justifyContent: 'center',
-        borderRadius: 10
+        borderRadius:   10
     },
-    blue: {
+    blue:      {
         backgroundColor: 'royalblue'
     },
-    blue2: {
+    blue2:     {
         backgroundColor: 'skyblue'
     },
-    blue3: {
+    blue3:     {
         backgroundColor: 'steelblue'
     },
-    title: {
-        color: '#FFF',
-        fontSize: 18,
+    title:     {
+        color:      '#FFF',
+        fontSize:   18,
         fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign:  'center'
     }
 
 });
 
-export default MainMenuScreen;
+const mapStateToProps    = state => {
+
+    return {
+        loading: state.chairs.loading
+    }
+};
+const mapDispatchToProps = dispatch => bindActionCreators({
+    loadChairs
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainMenuScreen);
