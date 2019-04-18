@@ -1,6 +1,7 @@
 import React from "react";
 import { AppRegistry } from 'react-native';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+import Config from 'react-native-config';
 
 import App from './src/components/App';
 import { name as appName } from './app.json';
@@ -13,3 +14,5 @@ const ReactNativeRedux = () => (
 );
 
 AppRegistry.registerComponent(appName, () => ReactNativeRedux);
+
+console.log('API_URL: ' + Config.API_URL);

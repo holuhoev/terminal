@@ -6,7 +6,7 @@ import {
     LOAD_FAILED, LOAD_MORE,
     LOAD_SUCCESS,
 } from "../reducers/persons";
-import { getPersons } from "../../api";
+import { getPersons } from "../../api/persons";
 import { selectCurrentPage } from '../selectors/persons'
 
 
