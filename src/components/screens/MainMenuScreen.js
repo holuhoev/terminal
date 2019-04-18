@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { StyleSheet, View, Text, TouchableNativeFeedback, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Text, TouchableNativeFeedback, ActivityIndicator, ImageBackground } from 'react-native';
 
 import { ROUTES } from "../../routes";
 import { loadChairs } from "../../store/reducers/chairs";
-
+import bg from '../../images/bg.jpg'
 
 class MainMenuScreen extends Component {
 
     static navigationOptions = () => {
 
         return {
-            title: 'Главное меню'
+            title: 'Факультет экономических наук'
         };
     };
 
@@ -36,7 +36,7 @@ class MainMenuScreen extends Component {
         }
 
         return (
-            <View style={ styles.container }>
+            <ImageBackground source={ bg } style={ styles.container }>
                 <TouchableNativeFeedback
                     onPress={ () => this.props.navigation.navigate(ROUTES.PersonList) }
                 >
@@ -49,7 +49,7 @@ class MainMenuScreen extends Component {
                         <Text style={ styles.title }>Новости</Text>
                     </View>
                 </TouchableNativeFeedback>
-            </View>
+            </ImageBackground>
         );
     }
 }
