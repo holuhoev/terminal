@@ -6,7 +6,7 @@ import {
     FlatList,
     ActivityIndicator
 } from "react-native";
-import { ListItem, SearchBar } from "react-native-elements";
+import { SearchBar } from "react-native-elements";
 import { isNil, isEmpty } from "ramda";
 
 import { changePersonsSearchQuery, loadMorePersons, loadPersons } from "../../store/reducers/persons";
@@ -79,7 +79,7 @@ class PersonListScreen extends Component {
         return (
             <PersonListItem
                 fio={ item.fio }
-                email={ item.email }
+                email={ item.emails }
                 avatarUrl='https://randomuser.me/api/portraits/thumb/men/92.jpg'
             />
         )

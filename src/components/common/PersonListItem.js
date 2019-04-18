@@ -1,5 +1,6 @@
 import React from 'react'
 import { ListItem } from "react-native-elements";
+import { Text, StyleSheet } from 'react-native';
 
 class PersonListItem extends React.PureComponent {
 
@@ -9,13 +10,25 @@ class PersonListItem extends React.PureComponent {
         return (
             <ListItem
                 roundAvatar
-                title={ fio }
+                title={
+                    <Text style={ styles.fioText }>
+                        { fio }
+                    </Text>
+                }
                 subtitle={ email }
                 leftAvatar={ { source: { uri: avatarUrl } } }
                 containerStyle={ { borderBottomWidth: 0 } }
+                chevron
             />
         )
     }
 }
+
+
+const styles = StyleSheet.create({
+    fioText: {
+        fontWeight: 'bold'
+    }
+});
 
 export default PersonListItem;
