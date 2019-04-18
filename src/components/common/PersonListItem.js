@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { ListItem } from "react-native-elements";
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
+
 
 class PersonListItem extends React.PureComponent {
 
     render() {
-        const { fio, email, avatarUrl } = this.props;
+        const { fio, avatarUrl, faculties } = this.props;
 
         return (
             <ListItem
@@ -15,7 +16,22 @@ class PersonListItem extends React.PureComponent {
                         { fio }
                     </Text>
                 }
-                subtitle={ email }
+                subtitle={ (
+                    <View>
+                        {
+                            faculties.map((item, index) => (
+                                <Fragment key={ index.toString() }>
+                                    <Text>
+                                        { item.position }
+                                    </Text>
+                                    <Text>
+                                        { item.chair }
+                                    </Text>
+                                </Fragment>
+                            ))
+                        }
+                    </View>
+                ) }
                 leftAvatar={ { source: { uri: avatarUrl } } }
                 containerStyle={ { borderBottomWidth: 0 } }
                 chevron

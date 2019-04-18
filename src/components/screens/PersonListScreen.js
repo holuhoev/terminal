@@ -11,6 +11,7 @@ import { isNil, isEmpty } from "ramda";
 
 import { changePersonsSearchQuery, loadMorePersons, loadPersons } from "../../store/reducers/persons";
 import PersonListItem from "../common/PersonListItem";
+import { selectPersons } from "../../store/selectors/persons";
 
 
 class PersonListScreen extends Component {
@@ -79,8 +80,8 @@ class PersonListScreen extends Component {
         return (
             <PersonListItem
                 fio={ item.fio }
-                email={ item.emails }
-                avatarUrl='https://randomuser.me/api/portraits/thumb/men/92.jpg'
+                avatarUrl={ item.avatarUrl }
+                faculties={ item.faculties }
             />
         )
     };
@@ -137,7 +138,7 @@ class PersonListScreen extends Component {
 
 const mapStateToProps = state => ({
     loading:     state.persons.loading,
-    data:        state.persons.personList,
+    data:        selectPersons(state),
     searchQuery: state.persons.searchQuery,
     error:       state.persons.error
 });
