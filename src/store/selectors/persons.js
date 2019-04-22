@@ -9,7 +9,7 @@ export const selectPersons = state => {
             id:        person.id,
             fio:       person.fio,
             url:       person.url,
-            avatarUrl: 'https://randomuser.me/api/portraits/thumb/men/92.jpg',
+            avatarUrl: person.avatarUrl,
             faculties: person.employees
                            .filter(employee => employee.chairId)
                            .map(employee => {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Config from 'react-native-config';
 
-axios.defaults.baseURL = Config.API_URL || 'http://192.168.3.24:8888/infotouch-terminal/api';
+axios.defaults.baseURL = Config.API_URL || 'http://192.168.3.29:8888/infotouch-terminal/api';
 axios.defaults.headers = {
     'X-Requested-With': 'XMLHttpRequest'
 };
