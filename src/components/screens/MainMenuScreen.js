@@ -44,7 +44,9 @@ class MainMenuScreen extends Component {
                         <Text style={ styles.title }>Преподаватели и сотрудники</Text>
                     </View>
                 </TouchableNativeFeedback>
-                <TouchableNativeFeedback>
+                <TouchableNativeFeedback
+                    onPress={ () => this.props.navigation.navigate(ROUTES.NewsList) }
+                >
                     <View style={ [styles.cell, styles.blue2] }>
                         <Text style={ styles.title }>Новости</Text>
                     </View>

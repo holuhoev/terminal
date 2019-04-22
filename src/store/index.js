@@ -4,10 +4,14 @@ import createSagaMiddleware from 'redux-saga'
 import persons from './reducers/persons';
 import chairs from './reducers/chairs';
 import sagas from './sagas'
+import news from "./reducers/news";
+import terminal from "./reducers/terminal";
 
 const rootReducer = combineReducers({
     persons,
-    chairs
+    chairs,
+    news,
+    terminal
 });
 
 const sagaMiddleware = createSagaMiddleware();

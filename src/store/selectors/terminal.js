@@ -1,0 +1,1 @@
+export const selectTerminalId = state => state.terminal.id;

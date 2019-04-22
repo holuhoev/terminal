@@ -13,7 +13,6 @@ export default function* main() {
 
 function* fetchChairs() {
     try {
-        console.log("fetchChairs");
         const chairList = yield call(getChairs);
 
         yield put({ type: LOAD_SUCCESS, payload: chairList })
