@@ -1,12 +1,16 @@
 import React from "react";
 import { AppRegistry } from 'react-native';
 import { Provider } from 'react-redux';
-import Config from 'react-native-config';
+import moment from 'moment';
+import 'moment/locale/ru';
 
 import './src/utils/axios';
 import App from './src/components/App';
 import { name as appName } from './app.json';
 import store from "./src/store";
+
+
+moment.locale('ru');
 
 const ReactNativeRedux = () => (
     <Provider store={ store }>
@@ -15,5 +19,3 @@ const ReactNativeRedux = () => (
 );
 
 AppRegistry.registerComponent(appName, () => ReactNativeRedux);
-
-console.log('API_URL: ' + Config.API_URL);
