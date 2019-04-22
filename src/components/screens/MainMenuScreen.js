@@ -5,14 +5,17 @@ import { StyleSheet, View, Text, TouchableNativeFeedback, ActivityIndicator, Ima
 
 import { ROUTES } from "../../routes";
 import { loadChairs } from "../../store/reducers/chairs";
-import bg from '../../images/bg.jpg'
+import bg1 from '../../images/bg_1.jpg'
+import { MainScreenHeader } from "../common/MainScreenHeader";
+
+const title = 'Факультет компьютерных наук';
 
 class MainMenuScreen extends Component {
 
     static navigationOptions = () => {
 
         return {
-            title: 'Факультет экономических наук'
+            title: 'Информационный терминал'
         };
     };
 
@@ -36,22 +39,30 @@ class MainMenuScreen extends Component {
         }
 
         return (
-            <ImageBackground source={ bg } style={ styles.container }>
-                <TouchableNativeFeedback
-                    onPress={ () => this.props.navigation.navigate(ROUTES.PersonList) }
-                >
-                    <View style={ [styles.cell, styles.blue] }>
-                        <Text style={ styles.title }>Преподаватели и сотрудники</Text>
-                    </View>
-                </TouchableNativeFeedback>
-                <TouchableNativeFeedback
-                    onPress={ () => this.props.navigation.navigate(ROUTES.NewsList) }
-                >
-                    <View style={ [styles.cell, styles.blue2] }>
-                        <Text style={ styles.title }>Новости</Text>
-                    </View>
-                </TouchableNativeFeedback>
-            </ImageBackground>
+            <View style={ {
+                flex: 1,
+            } }>
+                <MainScreenHeader
+                    title={ title }
+                    imageSrc={ bg1 }
+                />
+                <View style={ styles.container }>
+                    <TouchableNativeFeedback
+                        onPress={ () => this.props.navigation.navigate(ROUTES.PersonList) }
+                    >
+                        <View style={ [styles.cell, styles.blue] }>
+                            <Text style={ styles.title }>Преподаватели и сотрудники</Text>
+                        </View>
+                    </TouchableNativeFeedback>
+                    <TouchableNativeFeedback
+                        onPress={ () => this.props.navigation.navigate(ROUTES.NewsList) }
+                    >
+                        <View style={ [styles.cell, styles.blue2] }>
+                            <Text style={ styles.title }>Новости</Text>
+                        </View>
+                    </TouchableNativeFeedback>
+                </View>
+            </View>
         );
     }
 }
