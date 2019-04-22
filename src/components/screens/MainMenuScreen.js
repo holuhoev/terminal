@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { StyleSheet, View, Text, TouchableNativeFeedback, ActivityIndicator, ImageBackground } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { ROUTES } from "../../routes";
 import { loadChairs } from "../../store/reducers/chairs";
 import bg1 from '../../images/bg_1.jpg'
 import { MainScreenHeader } from "../common/MainScreenHeader";
+import { Button } from "react-native-elements";
 
 const title = 'Факультет компьютерных наук';
 
@@ -20,7 +22,7 @@ class MainMenuScreen extends Component {
     };
 
     componentDidMount() {
-        this.props.loadChairs();
+        // this.props.loadChairs();
     }
 
     render() {
@@ -47,20 +49,30 @@ class MainMenuScreen extends Component {
                     imageSrc={ bg1 }
                 />
                 <View style={ styles.container }>
-                    <TouchableNativeFeedback
+                    <Button
+                        icon={ {
+                            name:  "people",
+                            size:  40,
+                            color: "white"
+                        } }
                         onPress={ () => this.props.navigation.navigate(ROUTES.PersonList) }
-                    >
-                        <View style={ [styles.cell, styles.blue] }>
-                            <Text style={ styles.title }>Преподаватели и сотрудники</Text>
-                        </View>
-                    </TouchableNativeFeedback>
-                    <TouchableNativeFeedback
+                        buttonStyle={ [styles.cell, styles.blue] }
+                        title={ 'Преподаватели и сотрудники' }
+                    />
+                    <Button
+                        icon={
+                            <Icon
+                                name={ "event-note" }
+                                color={ 'white' }
+                                size={ 40 }
+                            />
+                        }
                         onPress={ () => this.props.navigation.navigate(ROUTES.NewsList) }
-                    >
-                        <View style={ [styles.cell, styles.blue2] }>
-                            <Text style={ styles.title }>Новости</Text>
-                        </View>
-                    </TouchableNativeFeedback>
+                        buttonStyle={ [styles.cell, styles.blue2] }
+                        type='outline'
+                        titleStyle={ { color: '#FFF' } }
+                        title={ 'Новости' }
+                    />
                 </View>
             </View>
         );
@@ -78,11 +90,10 @@ const styles = StyleSheet.create({
         paddingVertical: 20
     },
     cell:      {
-        height:         160,
-        width:          160,
-        alignItems:     'center',
-        justifyContent: 'center',
-        borderRadius:   10
+        height:       160,
+        width:        160,
+        borderRadius: 10,
+        marginBottom: 10
     },
     blue:      {
         backgroundColor: 'royalblue'
