@@ -57,7 +57,7 @@ class MainMenuScreen extends Component {
                         } }
                         onPress={ () => this.props.navigation.navigate(ROUTES.PersonList) }
                         buttonStyle={ [styles.cell, styles.blue] }
-                        title={ 'Преподаватели и сотрудники' }
+                        title={ 'Сотрудники' }
                     />
                     <Button
                         icon={
@@ -72,6 +72,13 @@ class MainMenuScreen extends Component {
                         type='outline'
                         titleStyle={ { color: '#FFF' } }
                         title={ 'Новости' }
+                    />
+                    <Button
+                        onPress={ () => this.props.navigation.navigate(ROUTES.Events) }
+                        buttonStyle={ [styles.cell, styles.blue2] }
+                        type='outline'
+                        titleStyle={ { color: '#FFF' } }
+                        title={ 'Сегодня, 24 апреля' }
                     />
                 </View>
             </View>

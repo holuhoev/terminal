@@ -6,12 +6,14 @@ import chairs from './reducers/chairs';
 import sagas from './sagas'
 import news from "./reducers/news";
 import terminal from "./reducers/terminal";
+import events from "./reducers/events";
 
 const rootReducer = combineReducers({
     persons,
     chairs,
     news,
-    terminal
+    terminal,
+    events
 });
 
 const sagaMiddleware = createSagaMiddleware();
