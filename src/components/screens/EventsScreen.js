@@ -2,13 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, ScrollView } from 'react-native';
 import { bindActionCreators } from "redux";
+import { WebView } from 'react-native-webview';
 
 import { loadEvents } from "../../store/reducers/events";
 import EventListItem from "../common/EventListItem";
-import { Text } from "react-native-elements";
 
 
 class EventsScreen extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            url:             '',
+            isWebViewOpened: false
+        }
+    }
 
     static navigationOptions = () => {
 
@@ -21,6 +30,11 @@ class EventsScreen extends React.Component {
         this.props.loadEvents();
     }
 
+    onOpenUrl = (url) => {
+        console.log("Open url: " + url);
+        this.setState({ isWebViewOpened: true, url: url });
+    };
+
     renderEvents = () => {
         const { events } = this.props;
 
@@ -28,6 +42,7 @@ class EventsScreen extends React.Component {
 
             return (
                 <EventListItem
+                    openUrl={ this.onOpenUrl }
                     key={ index.toString() }
                     { ...event }
                 />
@@ -37,6 +52,14 @@ class EventsScreen extends React.Component {
 
     render() {
 
+        if (this.state.isWebViewOpened) {
+
+            return (
+                <WebView
+                    source={ { uri: this.state.url } }
+                />
+            )
+        }
         return (
             <View>
                 <ScrollView>

@@ -1,17 +1,16 @@
 import React from 'react'
 import { View } from 'react-native';
 import { Button, Card, Text } from "react-native-elements";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 class EventListItem extends React.PureComponent {
 
     render() {
-        const { title, addInfo, tags, topics, url, time } = this.props;
+        const { title, addInfo, tags, topics, url, time, openUrl } = this.props;
 
         return (
-            <Card
-                title={ title }
-            >
+            <Card>
                 <View
                     style={ {
                         flex:           1,
@@ -20,21 +19,17 @@ class EventListItem extends React.PureComponent {
                     } }
                 >
                     <Text>
-                        { `${ time } ` }
-                    </Text>
-                    <Text>
                         { addInfo }
                     </Text>
                 </View>
                 <Text
                     style={ {
-                        paddingBottom: 10,
-                        fontSize:      16
+                        paddingBottom: 5,
                     } }
+                    h4
                 >
                     { title }
                 </Text>
-
                 <View
                     style={ {
                         flex:          1,
@@ -72,6 +67,29 @@ class EventListItem extends React.PureComponent {
                             />
                         ))
                     }
+                </View>
+                <View
+                    style={ {
+                        paddingTop:     10,
+                        flex:           1,
+                        flexDirection:  'row',
+                        justifyContent: 'space-between'
+                    } }
+                >
+                    <Button
+                        onPress={ () => openUrl(url) }
+                        type='clear'
+                        icon={
+                            <Icon
+                                name={ "open-in-browser" }
+                                color={ '#04BAEE' }
+                                size={ 20 }
+                            />
+                        }
+                    />
+                    <Text>
+                        { `${ time } ` }
+                    </Text>
                 </View>
             </Card>
         )
