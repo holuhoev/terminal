@@ -83,7 +83,7 @@ class EventListItem extends React.PureComponent {
                             <Icon
                                 name={ "open-in-browser" }
                                 color={ '#04BAEE' }
-                                size={ 20 }
+                                size={ 24 }
                             />
                         }
                     />

@@ -10,6 +10,7 @@ import bg1 from '../../images/bg_1.jpg'
 import { MainScreenHeader } from "../common/MainScreenHeader";
 import { Button } from "react-native-elements";
 import AnnouncementRunnableLine from "../common/AnnouncementRunnableLine";
+import { selectMainScreenIsLoading } from "../../store/selectors/mainScreen";
 
 const title = 'Факультет компьютерных наук';
 
@@ -27,30 +28,33 @@ class MainMenuScreen extends Component {
     }
 
     render() {
-        if (this.props.loading) {
-            return (
-                <View
-                    style={ {
-                        paddingVertical: 20,
-                        borderTopWidth:  1,
-                        borderColor:     "#CED0CE"
-                    } }
-                >
-                    <ActivityIndicator animating size="large"/>
-                </View>
-            )
-        }
+        const { loading } = this.props;
+        // if (this.props.loading) {
+        //     return (
+        //         <View
+        //             style={ {
+        //                 paddingVertical: 20,
+        //                 borderTopWidth:  1,
+        //                 borderColor:     "#CED0CE"
+        //             } }
+        //         >
+        //
+        //         </View>
+        //     )
+        // }
 
         return (
             <View style={ {
                 flex: 1,
             } }>
+                { loading && <ActivityIndicator animating size="large"/> }
                 <MainScreenHeader
                     title={ title }
                     imageSrc={ bg1 }
                 />
                 <View style={ styles.container }>
                     <Button
+                        disabled={ loading }
                         icon={ {
                             name:  "people",
                             size:  40,
@@ -59,8 +63,11 @@ class MainMenuScreen extends Component {
                         onPress={ () => this.props.navigation.navigate(ROUTES.PersonList) }
                         buttonStyle={ [styles.cell, styles.blue] }
                         title={ 'Сотрудники' }
+                        titleStyle={styles.buttonTitle}
+
                     />
                     <Button
+                        disabled={ loading }
                         icon={
                             <Icon
                                 name={ "event-note" }
@@ -71,15 +78,16 @@ class MainMenuScreen extends Component {
                         onPress={ () => this.props.navigation.navigate(ROUTES.NewsList) }
                         buttonStyle={ [styles.cell, styles.blue2] }
                         type='outline'
-                        titleStyle={ { color: '#FFF' } }
+                        titleStyle={styles.buttonTitle}
                         title={ 'Новости' }
                     />
                     <Button
+                        disabled={ loading }
                         onPress={ () => this.props.navigation.navigate(ROUTES.Events) }
-                        buttonStyle={ [styles.cell, styles.blue2] }
+                        buttonStyle={ [styles.cell, styles.blue3] }
                         type='outline'
-                        titleStyle={ { color: '#FFF' } }
-                        title={ 'Сегодня, 24 апреля' }
+                        titleStyle={styles.buttonTitle}
+                        title={ 'Сегодня, 26 апреля' }
                     />
                 </View>
                 <AnnouncementRunnableLine/>
@@ -89,7 +97,7 @@ class MainMenuScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    container:   {
         flex:            1,
         backgroundColor: '#F5FCFF',
         flexWrap:        'wrap',
@@ -98,22 +106,26 @@ const styles = StyleSheet.create({
         alignItems:      'flex-start',
         paddingVertical: 20
     },
-    cell:      {
+    cell:        {
         height:       160,
         width:        160,
         borderRadius: 10,
         marginBottom: 10
     },
-    blue:      {
+    buttonTitle: {
+        fontSize: 18,
+        color: '#FFF'
+    },
+    blue:        {
         backgroundColor: 'royalblue'
     },
-    blue2:     {
+    blue2:       {
         backgroundColor: 'skyblue'
     },
-    blue3:     {
-        backgroundColor: 'steelblue'
+    blue3:       {
+        backgroundColor: '#04BAEE'
     },
-    title:     {
+    title:       {
         color:      '#FFF',
         fontSize:   18,
         fontWeight: 'bold',
@@ -122,12 +134,13 @@ const styles = StyleSheet.create({
 
 });
 
-const mapStateToProps    = state => {
+const mapStateToProps = state => {
 
     return {
-        loading: state.chairs.loading
+        loading: selectMainScreenIsLoading(state)
     }
 };
+
 const mapDispatchToProps = dispatch => bindActionCreators({
     loadChairs
 }, dispatch);

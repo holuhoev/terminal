@@ -1,28 +1,57 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, View } from 'react-native';
 import TextTicker from 'react-native-text-ticker'
+import { bindActionCreators } from "redux";
+import { isEmpty } from 'ramda'
+
+import { loadAnnouncements } from "../../store/reducers/announcements";
 
 
-export default class AnnouncementRunnableLine extends Component {
+class AnnouncementRunnableLine extends Component {
+
+    componentDidMount() {
+        this.props.loadAnnouncements()
+        console.log("component mount")
+    }
 
     render() {
+        const { announcements } = this.props;
+
+        if (isEmpty(announcements)) {
+
+            return null;
+        }
+
         return (
             <View style={ styles.container }>
                 <TextTicker
                     style={ { fontSize: 24 } }
-                    duration={ 8000 }
+                    duration={ 12000 }
                     loop
                     bounce
                     // scroll
-                    repeatSpacer={ 20 }
+                    repeatSpacer={ 50 }
                     marqueeDelay={ 8000 }
                 >
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry and typesetting industry.
+                    { announcements.map(item => item.content + "\t\t") }
                 </TextTicker>
             </View>
         );
     }
 }
+
+const mapStateToProps = state => {
+
+    return {
+        announcements: state.announcements.data
+    }
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    loadAnnouncements
+}, dispatch);
+
 
 const styles = StyleSheet.create({
     container: {
@@ -30,3 +59,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 });
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnnouncementRunnableLine)

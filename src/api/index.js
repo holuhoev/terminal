@@ -1,7 +1,14 @@
 import axios from 'axios';
 import { propOr } from 'ramda';
 
-import { GET_CHAIRS, GET_EVENTS, GET_NEWS, GET_PERSONS } from "../utils/url";
+import {
+    GET_ANNOUNCEMENTS,
+    GET_CHAIRS,
+    GET_EVENTS,
+    GET_NEWS,
+    GET_PERSONS,
+    GET_TODAY_ANNOUNCEMENTS
+} from "../utils/url";
 
 export const getPersons = ({ searchQuery, page }) => {
 
@@ -46,6 +53,19 @@ export const getEvents = ({ terminalId }) => {
         .then(responseData)
         .catch(error('GET', getEventsByTerminal));
 };
+
+export const getAnnouncements = ({ terminalId }) => {
+
+    return axios
+        .get(GET_ANNOUNCEMENTS, {
+            params: {
+                terminalId
+            }
+        })
+        .then(responseData)
+        .catch(error('GET', GET_ANNOUNCEMENTS));
+};
+
 
 const responseData = response => propOr([], 'data', response);
 const error        = (method, endpoint) => err => {

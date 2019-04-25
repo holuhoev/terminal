@@ -7,13 +7,15 @@ import sagas from './sagas'
 import news from "./reducers/news";
 import terminal from "./reducers/terminal";
 import events from "./reducers/events";
+import announcements from "./reducers/announcements";
 
 const rootReducer = combineReducers({
     persons,
     chairs,
     news,
     terminal,
-    events
+    events,
+    announcements
 });
 
 const sagaMiddleware = createSagaMiddleware();
