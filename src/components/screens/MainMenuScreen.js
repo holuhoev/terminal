@@ -9,6 +9,7 @@ import { loadChairs } from "../../store/reducers/chairs";
 import bg1 from '../../images/bg_1.jpg'
 import { MainScreenHeader } from "../common/MainScreenHeader";
 import { Button } from "react-native-elements";
+import AnnouncementRunnableLine from "../common/AnnouncementRunnableLine";
 
 const title = 'Факультет компьютерных наук';
 
@@ -81,6 +82,7 @@ class MainMenuScreen extends Component {
                         title={ 'Сегодня, 24 апреля' }
                     />
                 </View>
+                <AnnouncementRunnableLine/>
             </View>
         );
     }
