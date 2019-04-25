@@ -6,10 +6,11 @@ import { Text, StyleSheet, View } from 'react-native';
 class PersonListItem extends React.PureComponent {
 
     render() {
-        const { fio, avatarUrl, faculties } = this.props;
+        const { fio, avatarUrl, faculties, url, openUrl } = this.props;
 
         return (
             <ListItem
+                onPress={ () => openUrl(url) }
                 roundAvatar
                 title={
                     <Text style={ styles.fioText }>

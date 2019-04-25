@@ -22,7 +22,7 @@ class MainMenuScreen extends Component {
     };
 
     componentDidMount() {
-        // this.props.loadChairs();
+        this.props.loadChairs();
     }
 
     render() {

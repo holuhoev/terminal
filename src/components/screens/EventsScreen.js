@@ -60,6 +60,7 @@ class EventsScreen extends React.Component {
                 />
             )
         }
+
         return (
             <View>
                 <ScrollView>
