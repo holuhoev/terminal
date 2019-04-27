@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Image } from 'react-native';
 
 
 import { loadChairs } from "../../store/reducers/chairs";
 import { selectMainScreenIsLoading } from "../../store/selectors/mainScreen";
 import MainMenuScreen from "./MainMenuScreen";
 import { loadAnnouncements } from "../../store/reducers/announcements";
+import logo from '../../images/logo.png'
 
 
 class HomeScreen extends Component {
@@ -30,8 +31,9 @@ class HomeScreen extends Component {
     renderLogo() {
 
         return (
-            <View style={ { flex: 1, backgroundColor: '#04BAEE' } }>
-                <ActivityIndicator animating size="large"/>
+            <View style={ { flex: 1, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' } }>
+                <Image source={ logo } resizeMode={ 'contain' } style={ { height: 200 } }/>
+                {/*<ActivityIndicator animating size="large"/>*/}
             </View>
         )
     }
