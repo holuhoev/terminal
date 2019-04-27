@@ -63,7 +63,7 @@ class MainMenuScreen extends Component {
                         onPress={ () => this.props.navigation.navigate(ROUTES.PersonList) }
                         buttonStyle={ [styles.cell, styles.blue] }
                         title={ 'Сотрудники' }
-                        titleStyle={styles.buttonTitle}
+                        titleStyle={ styles.buttonTitle }
 
                     />
                     <Button
@@ -78,7 +78,7 @@ class MainMenuScreen extends Component {
                         onPress={ () => this.props.navigation.navigate(ROUTES.NewsList) }
                         buttonStyle={ [styles.cell, styles.blue2] }
                         type='outline'
-                        titleStyle={styles.buttonTitle}
+                        titleStyle={ styles.buttonTitle }
                         title={ 'Новости' }
                     />
                     <Button
@@ -86,8 +86,16 @@ class MainMenuScreen extends Component {
                         onPress={ () => this.props.navigation.navigate(ROUTES.Events) }
                         buttonStyle={ [styles.cell, styles.blue3] }
                         type='outline'
-                        titleStyle={styles.buttonTitle}
+                        titleStyle={ styles.buttonTitle }
                         title={ 'Сегодня, 26 апреля' }
+                    />
+                    <Button
+                        disabled={ loading }
+                        onPress={ () => this.props.navigation.navigate(ROUTES.BuildingMap) }
+                        buttonStyle={ [styles.cell, styles.darkGrey] }
+                        type='outline'
+                        titleStyle={ styles.buttonTitle }
+                        title={ 'Мое местоположение' }
                     />
                 </View>
                 <AnnouncementRunnableLine/>
@@ -110,11 +118,11 @@ const styles = StyleSheet.create({
         height:       160,
         width:        160,
         borderRadius: 10,
-        marginBottom: 10
+        marginBottom: 20
     },
     buttonTitle: {
         fontSize: 18,
-        color: '#FFF'
+        color:    '#FFF'
     },
     blue:        {
         backgroundColor: 'royalblue'
@@ -124,6 +132,9 @@ const styles = StyleSheet.create({
     },
     blue3:       {
         backgroundColor: '#04BAEE'
+    },
+    darkGrey:    {
+        backgroundColor: '#8E8E93'
     },
     title:       {
         color:      '#FFF',
