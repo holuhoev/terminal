@@ -1,60 +1,30 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { ROUTES } from "../../routes";
-import { loadChairs } from "../../store/reducers/chairs";
 import bg1 from '../../images/bg_1.jpg'
 import { MainScreenHeader } from "../common/MainScreenHeader";
 import { Button } from "react-native-elements";
 import AnnouncementRunnableLine from "../common/AnnouncementRunnableLine";
-import { selectMainScreenIsLoading } from "../../store/selectors/mainScreen";
+
 
 const title = 'Факультет компьютерных наук';
 
 class MainMenuScreen extends Component {
 
-    static navigationOptions = () => {
-
-        return {
-            title: 'Информационный терминал'
-        };
-    };
-
-    componentDidMount() {
-        this.props.loadChairs();
-    }
-
     render() {
-        const { loading } = this.props;
-        // if (this.props.loading) {
-        //     return (
-        //         <View
-        //             style={ {
-        //                 paddingVertical: 20,
-        //                 borderTopWidth:  1,
-        //                 borderColor:     "#CED0CE"
-        //             } }
-        //         >
-        //
-        //         </View>
-        //     )
-        // }
-
         return (
             <View style={ {
                 flex: 1,
             } }>
-                { loading && <ActivityIndicator animating size="large"/> }
+
                 <MainScreenHeader
                     title={ title }
                     imageSrc={ bg1 }
                 />
                 <View style={ styles.container }>
                     <Button
-                        disabled={ loading }
                         icon={ {
                             name:  "people",
                             size:  40,
@@ -67,7 +37,6 @@ class MainMenuScreen extends Component {
 
                     />
                     <Button
-                        disabled={ loading }
                         icon={
                             <Icon
                                 name={ "event-note" }
@@ -82,7 +51,6 @@ class MainMenuScreen extends Component {
                         title={ 'Новости' }
                     />
                     <Button
-                        disabled={ loading }
                         onPress={ () => this.props.navigation.navigate(ROUTES.Events) }
                         buttonStyle={ [styles.cell, styles.blue3] }
                         type='outline'
@@ -90,7 +58,6 @@ class MainMenuScreen extends Component {
                         title={ 'Сегодня, 26 апреля' }
                     />
                     <Button
-                        disabled={ loading }
                         onPress={ () => this.props.navigation.navigate(ROUTES.BuildingMap) }
                         buttonStyle={ [styles.cell, styles.darkGrey] }
                         type='outline'
@@ -144,16 +111,4 @@ const styles = StyleSheet.create({
     }
 
 });
-
-const mapStateToProps = state => {
-
-    return {
-        loading: selectMainScreenIsLoading(state)
-    }
-};
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-    loadChairs
-}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainMenuScreen);
+export default MainMenuScreen

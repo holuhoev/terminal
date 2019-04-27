@@ -5,21 +5,13 @@ import TextTicker from 'react-native-text-ticker'
 import { bindActionCreators } from "redux";
 import { isEmpty } from 'ramda'
 
-import { loadAnnouncements } from "../../store/reducers/announcements";
-
 
 class AnnouncementRunnableLine extends Component {
-
-    componentDidMount() {
-        this.props.loadAnnouncements()
-        console.log("component mount")
-    }
 
     render() {
         const { announcements } = this.props;
 
         if (isEmpty(announcements)) {
-
             return null;
         }
 
@@ -48,9 +40,7 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-    loadAnnouncements
-}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
 
 
 const styles = StyleSheet.create({
