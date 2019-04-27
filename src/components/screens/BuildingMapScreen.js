@@ -9,8 +9,8 @@ const auditoriums = [
         id:     1,
         points: '10,10 10,60 100,60, 100,10',
         number: '402',
-        textX:  '10',
-        textY:  '40'
+        textX:  '55',
+        textY:  '35'
     }
 ];
 

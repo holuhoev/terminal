@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import Svg, { Polygon, Text as SvgText } from "react-native-svg";
-import { Text } from "react-native-elements";
 
 
 function Room(item) {
@@ -15,12 +14,8 @@ function Room(item) {
             <SvgText
                 x={ item.textX }
                 y={ item.textY }
-                textLength={ '90' }
-                // fill="none"
-                // stroke="purple"
                 fontSize="16"
-                // fontWeight="bold"
-                // textAnchor="middle"
+                textAnchor={ "middle" }
             >
                 { item.number }
             </SvgText>
