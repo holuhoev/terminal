@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
-import Svg, { Polygon, Text as SvgText } from "react-native-svg";
-import { View } from 'react-native';
+import Svg, { Polygon, Text } from "react-native-svg";
 
 function Room(item) {
 
@@ -10,15 +9,17 @@ function Room(item) {
                 points={ item.points }
                 fill="#8E8E93"
                 opacity={ 0.5 }
+                scale={ item.scale }
             />
-            <SvgText
+            <Text
                 x={ item.textX }
                 y={ item.textY }
                 fontSize="16"
+                scale={ item.scale }
                 textAnchor={ "middle" }
             >
                 { item.number }
-            </SvgText>
+            </Text>
         </Fragment>
     )
 }
@@ -26,31 +27,28 @@ function Room(item) {
 class BuildingMap extends React.Component {
 
     render() {
-        const { auditoriums } = this.props;
+        const { auditoriums, scale } = this.props;
 
         return (
 
-            <View
-                style={ {
-                    // transform: [{ skewX: '45deg' }]
-                } }
+
+            <Svg
+                height="100%"
+                width="100%"
+                scale={ `0.2` }
+                // viewBox={ `0 0 ${ 100 * scale } ${ 100 * scale }` }
             >
-                <Svg
-                    height="50%"
-                    width="100%"
-                >
 
-                    {
-                        auditoriums.map((item, i) => (
-                            <Room
-                                { ...item }
-                                key={ i.toString() }
-                            />
-                        ))
-                    }
-
-                </Svg>
-            </View>
+                {
+                    auditoriums.map((item, i) => (
+                        <Room
+                            { ...item }
+                            scale={ scale }
+                            key={ i.toString() }
+                        />
+                    ))
+                }
+            </Svg>
         )
     }
 }

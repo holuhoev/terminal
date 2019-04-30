@@ -1,8 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
+import { Button } from "react-native-elements";
+import PinchZoomView from 'react-native-pinch-zoom-view';
 
 import BuildingMap from "../common/BuildingMap";
-import { Button } from "react-native-elements";
 
 
 const auditoriums = [
@@ -18,7 +19,7 @@ const auditoriums = [
 class BuildingMapScreen extends React.Component {
 
     state = {
-        scale: 0
+        scale: 1
     };
 
     static navigationOptions = () => {
@@ -31,29 +32,46 @@ class BuildingMapScreen extends React.Component {
     plusScale = () => {
         const current = this.state.scale;
 
-        this.setState({ scale: current + 10 });
+        this.setState({ scale: current + 0.5 });
+    };
+
+    minusScale = () => {
+        const current = this.state.scale;
+
+        this.setState({ scale: current - 0.5 });
     };
 
     render() {
-        console.log("scale: " + this.state.scale);
+
+        const { scale } = this.state;
 
         return (
             <View
                 style={ {
-                    flex:           1,
-                    alignItems:     'center',
-                    justifyContent: 'center'
+                    flex: 1,
                 } }
             >
                 <Button
                     title={ "+" }
                     onPress={ this.plusScale }
                 />
-                <BuildingMap
-                    scale={ this.state.scale }
-                    auditoriums={ auditoriums }
+                <Button
+                    title={ "-" }
+                    onPress={ this.minusScale }
                 />
+
+                <PinchZoomView>
+                    <View style={ {
+                        flex: 1
+                    } }>
+                        <BuildingMap
+                            scale={ scale }
+                            auditoriums={ auditoriums }
+                        />
+                    </View>
+                </PinchZoomView>
             </View>
+
         )
     }
 }

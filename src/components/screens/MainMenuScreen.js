@@ -30,9 +30,8 @@ class MainMenuScreen extends Component {
     };
 
     componentDidMount() {
-        console.log("mount");
         this.props.loadAnnouncements();
-        this.props.loadChairs();
+        // this.props.loadChairs();
     }
 
     renderLogo() {
@@ -103,7 +102,7 @@ class MainMenuScreen extends Component {
                         title={ 'Мое местоположение' }
                     />
                 </View>
-                <AnnouncementRunnableLine/>
+                {/*<AnnouncementRunnableLine/>*/ }
             </View>
         );
     }

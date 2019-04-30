@@ -9,7 +9,7 @@ import MainMenuScreen from "./screens/MainMenuScreen";
 
 
 const MainNavigator = createStackNavigator({
-    MainMenu:        { screen: MainMenuScreen },
+    MainMenu:    { screen: MainMenuScreen },
     PersonList:  { screen: PersonListScreen },
     NewsList:    { screen: NewsListScreen },
     Events:      { screen: EventsScreen },
