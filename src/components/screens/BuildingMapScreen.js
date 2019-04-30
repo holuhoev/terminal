@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 import BuildingMap from "../common/BuildingMap";
+import { Button } from "react-native-elements";
 
 
 const auditoriums = [
@@ -16,6 +17,10 @@ const auditoriums = [
 
 class BuildingMapScreen extends React.Component {
 
+    state = {
+        scale: 0
+    };
+
     static navigationOptions = () => {
 
         return {
@@ -23,7 +28,15 @@ class BuildingMapScreen extends React.Component {
         };
     };
 
+    plusScale = () => {
+        const current = this.state.scale;
+
+        this.setState({ scale: current + 10 });
+    };
+
     render() {
+        console.log("scale: " + this.state.scale);
+
         return (
             <View
                 style={ {
@@ -32,7 +45,12 @@ class BuildingMapScreen extends React.Component {
                     justifyContent: 'center'
                 } }
             >
+                <Button
+                    title={ "+" }
+                    onPress={ this.plusScale }
+                />
                 <BuildingMap
+                    scale={ this.state.scale }
                     auditoriums={ auditoriums }
                 />
             </View>

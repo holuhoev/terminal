@@ -33,7 +33,7 @@ class HomeScreen extends Component {
         return (
             <View style={ { flex: 1, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' } }>
                 <Image source={ logo } resizeMode={ 'contain' } style={ { height: 200 } }/>
-                {/*<ActivityIndicator animating size="large"/>*/}
+                <ActivityIndicator style={ { paddingTop: 20 } } size="large" color="#0000ff"/>
             </View>
         )
     }

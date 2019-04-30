@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { ROUTES } from "../../routes";
@@ -7,13 +7,51 @@ import bg1 from '../../images/bg_1.jpg'
 import { MainScreenHeader } from "../common/MainScreenHeader";
 import { Button } from "react-native-elements";
 import AnnouncementRunnableLine from "../common/AnnouncementRunnableLine";
+import { selectMainScreenIsLoading } from "../../store/selectors/mainScreen";
+import { bindActionCreators } from "redux";
+import { loadChairs } from "../../store/reducers/chairs";
+import { loadAnnouncements } from "../../store/reducers/announcements";
+import { connect } from "react-redux";
+import logo from "../../images/logo.png";
 
 
 const title = 'Факультет компьютерных наук';
 
 class MainMenuScreen extends Component {
 
+    static navigationOptions = () => {
+
+        return {
+            title:       '',
+            headerStyle: {
+                height: 0
+            }
+        };
+    };
+
+    componentDidMount() {
+        console.log("mount");
+        this.props.loadAnnouncements();
+        this.props.loadChairs();
+    }
+
+    renderLogo() {
+
+        return (
+            <View style={ { flex: 1, backgroundColor: '#FFF', alignItems: 'center', justifyContent: 'center' } }>
+                <Image source={ logo } resizeMode={ 'contain' } style={ { height: 200 } }/>
+                <ActivityIndicator style={ { paddingTop: 20 } } size="large" color="#0000ff"/>
+            </View>
+        )
+    }
+
     render() {
+        const { loading } = this.props;
+
+        if (loading) {
+            return this.renderLogo()
+        }
+
         return (
             <View style={ {
                 flex: 1,
@@ -111,4 +149,18 @@ const styles = StyleSheet.create({
     }
 
 });
-export default MainMenuScreen
+
+
+const mapStateToProps = state => {
+
+    return {
+        loading: selectMainScreenIsLoading(state)
+    }
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    loadChairs,
+    loadAnnouncements
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainMenuScreen);

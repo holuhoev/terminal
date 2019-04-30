@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import Svg, { Polygon, Text as SvgText } from "react-native-svg";
-
+import { View } from 'react-native';
 
 function Room(item) {
 
@@ -30,22 +30,27 @@ class BuildingMap extends React.Component {
 
         return (
 
-            <Svg
-                height="50%"
-                width="100%"
+            <View
+                style={ {
+                    // transform: [{ skewX: '45deg' }]
+                } }
             >
+                <Svg
+                    height="50%"
+                    width="100%"
+                >
 
-                {
-                    auditoriums.map((item, i) => (
-                        <Room
-                            { ...item }
-                            key={ i.toString() }
-                        />
-                    ))
-                }
+                    {
+                        auditoriums.map((item, i) => (
+                            <Room
+                                { ...item }
+                                key={ i.toString() }
+                            />
+                        ))
+                    }
 
-            </Svg>
-
+                </Svg>
+            </View>
         )
     }
 }
