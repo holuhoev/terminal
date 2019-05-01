@@ -30,7 +30,7 @@ class MainMenuScreen extends Component {
     };
 
     componentDidMount() {
-        this.props.loadAnnouncements();
+        // this.props.loadAnnouncements();
         // this.props.loadChairs();
     }
 

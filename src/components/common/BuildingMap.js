@@ -7,19 +7,23 @@ function Room(item) {
         <Fragment>
             <Polygon
                 points={ item.points }
-                fill="#8E8E93"
+                fill="#D8D8D8"
+                stroke="#979797"
+                strokeWidth={ 1 }
                 opacity={ 0.5 }
-                scale={ item.scale }
             />
-            <Text
-                x={ item.textX }
-                y={ item.textY }
-                fontSize="16"
-                scale={ item.scale }
-                textAnchor={ "middle" }
-            >
-                { item.number }
-            </Text>
+            { item.number && (
+                <Text
+                    fill="white"
+                    fontWeight="bold"
+                    x={ item.textX }
+                    y={ item.textY }
+                    fontSize="16"
+                    textAnchor={ "middle" }
+                >
+                    { item.number }
+                </Text>
+            ) }
         </Fragment>
     )
 }
@@ -27,7 +31,7 @@ function Room(item) {
 class BuildingMap extends React.Component {
 
     render() {
-        const { auditoriums, scale } = this.props;
+        const { rooms } = this.props;
 
         return (
 
@@ -35,15 +39,12 @@ class BuildingMap extends React.Component {
             <Svg
                 height="100%"
                 width="100%"
-                scale={ `0.2` }
-                // viewBox={ `0 0 ${ 100 * scale } ${ 100 * scale }` }
             >
 
                 {
-                    auditoriums.map((item, i) => (
+                    rooms.map((item, i) => (
                         <Room
                             { ...item }
-                            scale={ scale }
                             key={ i.toString() }
                         />
                     ))
