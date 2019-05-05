@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, Image, StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { ROUTES } from "../../routes";
+import { ROUTES } from "../../utils/navigation";
 import bg1 from '../../images/bg_1.jpg'
 import { MainScreenHeader } from "../common/MainScreenHeader";
 import { Button } from "react-native-elements";
@@ -30,8 +30,8 @@ class MainMenuScreen extends Component {
     };
 
     componentDidMount() {
-        // this.props.loadAnnouncements();
-        // this.props.loadChairs();
+        this.props.loadAnnouncements();
+        this.props.loadChairs();
     }
 
     renderLogo() {

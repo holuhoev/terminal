@@ -5,3 +5,5 @@ export const ROUTES = {
     Events:      'Events',
     BuildingMap: 'BuildingMap'
 };
+
+export const BUILDING_ROUTE_TO = 'BUILDING_ROUTE_TO';

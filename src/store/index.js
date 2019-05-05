@@ -5,7 +5,7 @@ import persons from './reducers/persons';
 import chairs from './reducers/chairs';
 import sagas from './sagas'
 import news from "./reducers/news";
-import terminal from "./reducers/terminal";
+import terminal from "./reducers/device";
 import events from "./reducers/events";
 import announcements from "./reducers/announcements";
 import map from "./reducers/map";

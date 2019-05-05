@@ -6,7 +6,7 @@ import {
     LOAD_FAILED
 } from "../reducers/events";
 import { getEvents } from "../../api";
-import { selectTerminalId } from "../selectors/terminal";
+import { selectDeviceId } from "../selectors/device";
 
 export default function* main() {
     yield takeLatest(LOAD, fetchEvents)
@@ -14,7 +14,7 @@ export default function* main() {
 
 function* fetchEvents() {
     try {
-        const terminalId = yield select(selectTerminalId);
+        const terminalId = yield select(selectDeviceId);
         const events     = yield call(getEvents, { terminalId });
 
         yield put({ type: LOAD_SUCCESS, payload: events })

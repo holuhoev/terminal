@@ -31,7 +31,8 @@ function Room(item) {
 class BuildingMap extends React.Component {
 
     render() {
-        const { rooms } = this.props;
+        const { rooms, route } = this.props;
+        console.log(route);
 
         return (
 
