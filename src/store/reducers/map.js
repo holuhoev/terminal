@@ -1,53 +1,67 @@
 const initialState = {
-    rooms: {
+    rooms:     {
         "1": {
-            id:     1,
             points: '10,10 99,10 99,59 10,59',
             number: '402',
             textX:  '55',
-            textY:  '35',
-            doors:  [
-                "todo X1,Y1 X2,Y2"
-            ],
-            link:   {
-                '2': '1',
-            }
+            textY:  '35'
         },
         "2": {
-            id:         2,
-            isCorridor: true,
-            points:     '10,60 39,60 39,94 10,94',
-            link:       {
-                '3': '1'
-            }
+            points: '10,60 99,60 99,94 10,94'
         },
         "3": {
-            id:         3,
-            isCorridor: true,
-            points:     '40,60 69,60 69,94 40,94',
-            link:       {
-                '4': '1'
-            }
-        },
-        "4": {
-            id:         4,
-            isCorridor: true,
-            points:     '70,60 99,60 99,94 70,94',
-            link:       {
-                '5': '1'
-            }
-        },
-        "5": {
-            id:     5,
             points: '10,95 99,95 99,144, 10,144',
             number: '403',
             textX:  '55',
-            textY:  '120',
-            link:   {
-                '4': '1'
-            }
+            textY:  '120'
         }
     },
+    points:    {
+        '1': {
+            roomId: '1',
+            x:      25,
+            y:      35,
+        },
+        '2': {
+            roomId: '1',
+            x:      55,
+            y:      35,
+        },
+        '3': {
+            roomId: '1',
+            x:      85,
+            y:      35,
+        },
+        '4': {
+            roomId: '2',
+            x:      25,
+            y:      80,
+        },
+        '5': {
+            roomId: '2',
+            x:      55,
+            y:      80,
+        },
+        '6': {
+            roomId: '2',
+            x:      85,
+            y:      80,
+        },
+        '7': {
+            roomId: '3',
+            x:      85,
+            y:      120,
+        }
+    },
+    relations: [
+        [1, 4],
+        [1, 2],
+        [2, 3],
+        [4, 5],
+        [5, 6],
+        [6, 7]
+    ]
+
 };
 
 const reducer = (state = initialState, action = {}) => {

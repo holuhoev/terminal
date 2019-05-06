@@ -1,6 +1,6 @@
 const initialState = {
-    id:     3,
-    roomId: '1'
+    id:      3,
+    pointId: '3'
 };
 
 const reducer = (state = initialState, action = {}) => {

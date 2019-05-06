@@ -40,7 +40,7 @@ class PersonListItem extends React.PureComponent {
                     <Button
                         title={ "Местоположение" }
                         type={ 'outline' }
-                        onPress={ () => getRoute('5') }
+                        onPress={ () => getRoute('7') }
                     />
                 ) }
             />

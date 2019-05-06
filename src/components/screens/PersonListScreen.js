@@ -13,7 +13,7 @@ import { changePersonsSearchQuery, loadMorePersons, loadPersons } from "../../st
 import PersonListItem from "../common/PersonListItem";
 import { selectPersons } from "../../store/selectors/persons";
 import { WebView } from "react-native-webview";
-import { ROUTES } from "../../utils/navigation";
+import { BUILDING_ROUTE_TO, ROUTES } from "../../utils/navigation";
 
 
 class PersonListScreen extends Component {
@@ -92,7 +92,7 @@ class PersonListScreen extends Component {
 
     onRouteClick = (to) => {
         this.props.navigation.navigate(ROUTES.BuildingMap, {
-            to: to
+            [BUILDING_ROUTE_TO]: to
         })
     };
 

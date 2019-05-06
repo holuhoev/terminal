@@ -14,9 +14,9 @@ export default function* main() {
 function* fetchChairs() {
     try {
         yield delay(3000);
-        const chairList = yield call(getChairs);
+        // const chairList = yield call(getChairs);
 
-        yield put({ type: LOAD_SUCCESS, payload: chairList })
+        yield put({ type: LOAD_SUCCESS, payload: [] })
     } catch (error) {
         yield put({ type: LOAD_FAILED, payload: error })
     }

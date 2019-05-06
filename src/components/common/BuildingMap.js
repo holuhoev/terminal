@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import Svg, { Polygon, Text } from "react-native-svg";
+import Svg, { Polygon, Polyline, Text } from "react-native-svg";
 
 function Room(item) {
 
@@ -50,6 +50,14 @@ class BuildingMap extends React.Component {
                         />
                     ))
                 }
+                { route && (
+                    <Polyline
+                        points={ route }
+                        fill="none"
+                        stroke="black"
+                        strokeWidth="3"
+                    />
+                ) }
             </Svg>
         )
     }
