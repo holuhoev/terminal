@@ -1,15 +1,16 @@
 import React, { Fragment } from 'react'
-import { ListItem } from "react-native-elements";
+import { Button, ListItem } from "react-native-elements";
 import { Text, StyleSheet, View } from 'react-native';
 
 
 class PersonListItem extends React.PureComponent {
 
     render() {
-        const { fio, avatarUrl, faculties } = this.props;
+        const { fio, avatarUrl, faculties, url, openUrl, getRoute } = this.props;
 
         return (
             <ListItem
+                onPress={ () => openUrl(url) }
                 roundAvatar
                 title={
                     <Text style={ styles.fioText }>
@@ -35,6 +36,13 @@ class PersonListItem extends React.PureComponent {
                 leftAvatar={ { source: { uri: avatarUrl } } }
                 containerStyle={ { borderBottomWidth: 0 } }
                 chevron
+                rightElement={ (
+                    <Button
+                        title={ "Местоположение" }
+                        type={ 'outline' }
+                        onPress={ () => getRoute('7') }
+                    />
+                ) }
             />
         )
     }

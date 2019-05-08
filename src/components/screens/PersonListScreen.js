@@ -12,9 +12,20 @@ import { isNil, isEmpty } from "ramda";
 import { changePersonsSearchQuery, loadMorePersons, loadPersons } from "../../store/reducers/persons";
 import PersonListItem from "../common/PersonListItem";
 import { selectPersons } from "../../store/selectors/persons";
+import { WebView } from "react-native-webview";
+import { BUILDING_ROUTE_TO, ROUTES } from "../../utils/navigation";
 
 
 class PersonListScreen extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            url:             '',
+            isWebViewOpened: false
+        }
+    }
 
     static navigationOptions = () => {
         return {
@@ -74,14 +85,27 @@ class PersonListScreen extends Component {
         );
     };
 
-    renderItem = ({ item }) => {
+    onOpenUrl = (url) => {
+        console.log("Open url: " + url);
+        this.setState({ isWebViewOpened: true, url: url });
+    };
 
+    onRouteClick = (to) => {
+        this.props.navigation.navigate(ROUTES.BuildingMap, {
+            [BUILDING_ROUTE_TO]: to
+        })
+    };
+
+    renderItem = ({ item }) => {
 
         return (
             <PersonListItem
+                url={ item.url }
+                openUrl={ this.onOpenUrl }
                 fio={ item.fio }
                 avatarUrl={ item.avatarUrl }
                 faculties={ item.faculties }
+                getRoute={ this.onRouteClick }
             />
         )
     };
@@ -105,6 +129,16 @@ class PersonListScreen extends Component {
     }
 
     render() {
+
+
+        if (this.state.isWebViewOpened) {
+
+            return (
+                <WebView
+                    source={ { uri: this.state.url } }
+                />
+            )
+        }
 
 
         if (this.isDataEmpty) {

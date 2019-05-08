@@ -14,7 +14,7 @@ class NewsCard extends React.PureComponent {
             >
                 <Image
                     source={ { uri: imageUrl } }
-                    style={ { width: 350, height: 300 } }
+                    style={ { width: 540, height: 480 } }
                     PlaceholderContent={ <ActivityIndicator/> }
                 />
                 <View

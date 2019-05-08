@@ -5,13 +5,21 @@ import persons from './reducers/persons';
 import chairs from './reducers/chairs';
 import sagas from './sagas'
 import news from "./reducers/news";
-import terminal from "./reducers/terminal";
+import device from "./reducers/device";
+import events from "./reducers/events";
+import announcements from "./reducers/announcements";
+import buildings from "./reducers/buildings";
+import map from "./reducers/map";
 
 const rootReducer = combineReducers({
     persons,
     chairs,
     news,
-    terminal
+    device,
+    events,
+    announcements,
+    map,
+    buildings
 });
 
 const sagaMiddleware = createSagaMiddleware();
