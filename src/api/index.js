@@ -2,13 +2,20 @@ import axios from 'axios';
 import { propOr } from 'ramda';
 
 import {
-    GET_ANNOUNCEMENTS,
+    GET_ANNOUNCEMENTS, GET_BUILDINGS,
     GET_CHAIRS,
     GET_EVENTS,
     GET_NEWS,
-    GET_PERSONS,
-    GET_TODAY_ANNOUNCEMENTS
+    GET_PERSONS
 } from "../utils/url";
+
+
+const responseData = response => propOr([], 'data', response);
+const error        = (method, endpoint) => err => {
+    console.error(`${ method } ${ endpoint } ${ err }`);
+    return Promise.reject(err);
+};
+
 
 export const getPersons = ({ searchQuery, page }) => {
 
@@ -66,10 +73,11 @@ export const getAnnouncements = ({ terminalId }) => {
         .catch(error('GET', GET_ANNOUNCEMENTS));
 };
 
+export const getBuildings = () => {
 
-const responseData = response => propOr([], 'data', response);
-const error        = (method, endpoint) => err => {
-    console.error(`${ method } ${ endpoint } ${ err }`);
-    return Promise.reject(err);
+    return axios
+        .get(GET_BUILDINGS)
+        .then(responseData)
+        .catch(error('GET', GET_CHAIRS));
 };
 

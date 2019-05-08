@@ -7,6 +7,7 @@ import {
 } from "../reducers/chairs";
 import { getChairs } from "../../api/";
 
+
 export default function* main() {
     yield takeLatest(LOAD, fetchChairs)
 }
@@ -14,9 +15,9 @@ export default function* main() {
 function* fetchChairs() {
     try {
         yield delay(3000);
-        // const chairList = yield call(getChairs);
+        const chairList = yield call(getChairs);
 
-        yield put({ type: LOAD_SUCCESS, payload: [] })
+        yield put({ type: LOAD_SUCCESS, payload: chairList })
     } catch (error) {
         yield put({ type: LOAD_FAILED, payload: error })
     }
