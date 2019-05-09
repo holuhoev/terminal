@@ -1,3 +1,4 @@
+
 export const selectLessons = state => state.schedule.lessons;
 
 export const selectPersonLessons = (state, personId) => selectLessons(state).data[personId];
@@ -5,5 +6,7 @@ export const selectPersonLessons = (state, personId) => selectLessons(state).dat
 export const selectPersonRoomId = (state, personId) => {
     const personLessons = selectPersonLessons(state, personId);
 
-    return personLessons ? personLessons.auditoriumId : ''
+    return listNotEmpty(personLessons) ? personLessons[0].auditoriumId : null;
 };
+
+const listNotEmpty = list => !!list && list.length > 0

@@ -15,7 +15,7 @@ const initialState = {
             number:        '403',
             textX:         '55',
             textY:         '120',
-            centerPointId: '6'
+            centerPointId: '7'
         }
     },
     points:    {

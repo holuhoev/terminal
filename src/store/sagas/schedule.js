@@ -1,4 +1,4 @@
-import { call, takeLatest, put } from 'redux-saga/effects'
+import { call, takeLatest, put, delay } from 'redux-saga/effects'
 
 import {
     LOAD_PERSON_NOW_LESSON,
@@ -14,9 +14,12 @@ export default function* main() {
 
 function* fetchPersonNowLessons(action) {
     try {
+        yield delay(3000);
         const personId = action.payload;
 
-        const lessons = call(getPersonNowLessons, personId);
+        const lessons = yield call(getPersonNowLessons, personId);
+
+        console.log("lessons:" + lessons);
 
         yield put({
             type:    LOAD_PERSON_NOW_LESSON_SUCCESS,

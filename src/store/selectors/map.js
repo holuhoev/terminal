@@ -24,7 +24,7 @@ export const selectDestinationRoom = (state, fromScreen, navigationProps) => {
         case ROUTES.PersonList:
             const roomId = selectPersonRoomId(state, navigationProps.personId);
 
-            return state.map.rooms[roomId];
+            return roomId ? state.map.rooms[roomId] : null;
 
         default:
             return null;
@@ -39,7 +39,7 @@ export const selectRouteFromDevice = (state, fromScreen, navigationProps) => {
 
 export const selectRouteFromDeviceToDestinationPoint = (state, destinationPoint) => {
     if (!destinationPoint) {
-        return ''
+        return null;
     }
 
     const devicePointId = selectDevicePointId(state);

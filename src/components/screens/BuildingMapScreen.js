@@ -5,8 +5,7 @@ import { View } from 'react-native';
 import PinchZoomView from 'react-native-pinch-zoom-view';
 
 import BuildingMap from "../common/BuildingMap";
-import { selectRouteFromDeviceToDestinationPoint, selectRooms, selectRouteFromDevice } from "../../store/selectors/map";
-import { BUILDING_ROUTE_TO } from "../../utils/navigation";
+import { selectRooms, selectRouteFromDevice } from "../../store/selectors/map";
 
 
 class BuildingMapScreen extends React.Component {
@@ -21,6 +20,7 @@ class BuildingMapScreen extends React.Component {
 
     render() {
         const { rooms, route } = this.props;
+        console.log(route);
 
         return (
             <PinchZoomView
