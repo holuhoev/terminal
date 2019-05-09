@@ -14,6 +14,7 @@ import PersonListItem from "../common/PersonListItem";
 import { selectPersons } from "../../store/selectors/persons";
 import { WebView } from "react-native-webview";
 import { BUILDING_ROUTE_TO, ROUTES } from "../../utils/navigation";
+import { loadPersonNowLesson } from "../../store/reducers/schedule";
 
 
 class PersonListScreen extends Component {
@@ -90,9 +91,13 @@ class PersonListScreen extends Component {
         this.setState({ isWebViewOpened: true, url: url });
     };
 
-    onRouteClick = (to) => {
+    onRouteClick = (personId) => {
+        this.props.loadPersonNowLesson(personId);
         this.props.navigation.navigate(ROUTES.BuildingMap, {
-            [BUILDING_ROUTE_TO]: to
+            params: {
+                personId
+            },
+            from:   ROUTES.PersonList
         })
     };
 
@@ -100,6 +105,7 @@ class PersonListScreen extends Component {
 
         return (
             <PersonListItem
+                id={ item.id }
                 url={ item.url }
                 openUrl={ this.onOpenUrl }
                 fio={ item.fio }
@@ -181,7 +187,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
     changePersonsSearchQuery: changePersonsSearchQuery,
     loadPersons:              loadPersons,
-    loadMorePersons:          loadMorePersons
+    loadMorePersons:          loadMorePersons,
+    loadPersonNowLesson:      loadPersonNowLesson
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PersonListScreen);

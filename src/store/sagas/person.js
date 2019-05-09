@@ -34,12 +34,3 @@ function* fetchPersons(action) {
         yield put({ type: LOAD_FAILED, payload: error })
     }
 }
-
-function fetchPersonNowLesson(action) {
-    try {
-
-    } catch (error) {
-
-    }
-
-}

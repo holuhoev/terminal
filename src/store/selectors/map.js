@@ -1,47 +1,58 @@
 import { values, reduce } from "ramda";
 import Graph from "../../utils/graph";
 import { selectDevicePointId } from "./device";
+import { selectPersonRoomId } from "./schedule";
+import { ROUTES } from "../../utils/navigation";
 
-export const selectRooms = state => {
 
-    return values(state.map.rooms);
+const selectVertices = (state) => reduce(toGraph, {}, state.map.relations);
+const pointToString  = point => `${ point.x },${ point.y }`;
+const addVertex      = (vertex, all) => ({ ...(all || {}), [vertex]: 1 });
+
+export const selectRooms            = state => values(state.map.rooms);
+export const selectPointById        = state => pointId => selectPoints(state)[pointId];
+export const selectPoints           = (state) => state.map.points;
+export const selectDestinationPoint = (state, fromScreen, navigationProps) => {
+    const room = selectDestinationRoom(state, fromScreen, navigationProps);
+
+    return room ? room.centerPointId : null
 };
 
-export const selectPointById = state => pointId => {
-    return selectPoints(state)[pointId];
+export const selectDestinationRoom = (state, fromScreen, navigationProps) => {
+    switch (fromScreen) {
+
+        case ROUTES.PersonList:
+            const roomId = selectPersonRoomId(state, navigationProps.personId);
+
+            return state.map.rooms[roomId];
+
+        default:
+            return null;
+    }
 };
 
-export const selectPoints = (state) => {
-    return state.map.points;
+export const selectRouteFromDevice = (state, fromScreen, navigationProps) => {
+    const destPoint = selectDestinationPoint(state, fromScreen, navigationProps);
+
+    return selectRouteFromDeviceToDestinationPoint(state, destPoint);
 };
 
-export const selectRouteFromDevice = (state, to) => {
-    if (!to) {
+export const selectRouteFromDeviceToDestinationPoint = (state, destinationPoint) => {
+    if (!destinationPoint) {
         return ''
     }
-
-    console.log(to);
 
     const devicePointId = selectDevicePointId(state);
     const vertices      = selectVertices(state);
 
     const graph = new Graph(vertices);
 
-    return graph.shortestPath(devicePointId, to)
+    return graph.shortestPath(devicePointId, destinationPoint)
         .concat([devicePointId])
         .reverse()
         .map(selectPointById(state))
         .map(pointToString)
         .join(' ');
-};
-
-
-const pointToString = point => {
-    return `${ point.x },${ point.y }`
-};
-
-const selectVertices = (state) => {
-    return reduce(toGraph, {}, state.map.relations);
 };
 
 const toGraph = (vertices, relation) => {
@@ -53,8 +64,4 @@ const toGraph = (vertices, relation) => {
         [vertex_1]: addVertex(vertex_2, vertices[vertex_1]),
         [vertex_2]: addVertex(vertex_1, vertices[vertex_2])
     }
-};
-
-const addVertex = (vertex, all) => {
-    return { ...(all || {}), [vertex]: 1 }
 };

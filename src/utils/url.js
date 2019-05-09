@@ -7,4 +7,5 @@ export const GET_EVENTS  = '/event';
 export const GET_ANNOUNCEMENTS       = '/announcement';
 export const GET_TODAY_ANNOUNCEMENTS = '/announcement/today';
 
-export const GET_BUILDINGS = '/building';
+export const GET_BUILDINGS          = '/building';
+export const GET_PERSON_LESSONS_NOW = '/lesson/person/now';

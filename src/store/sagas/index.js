@@ -6,6 +6,7 @@ import news from './news';
 import event from './event';
 import announcement from './announcement';
 import building from './building';
+import schedule from './schedule';
 
 
 export default function* main() {
@@ -15,4 +16,5 @@ export default function* main() {
     yield fork(event);
     yield fork(announcement);
     yield fork(building);
+    yield fork(schedule);
 };

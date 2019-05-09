@@ -5,7 +5,7 @@ import {
     GET_ANNOUNCEMENTS, GET_BUILDINGS,
     GET_CHAIRS,
     GET_EVENTS,
-    GET_NEWS,
+    GET_NEWS, GET_PERSON_LESSONS_NOW,
     GET_PERSONS
 } from "../utils/url";
 
@@ -81,3 +81,17 @@ export const getBuildings = () => {
         .catch(error('GET', GET_CHAIRS));
 };
 
+export const getPersonNowLessons = (personId) => {
+
+    return new Promise.resolve([{
+        "auditoriumId": 3,
+    }]);
+    // return axios
+    //     .get(GET_PERSON_LESSONS_NOW, {
+    //         params: {
+    //             personId
+    //         }
+    //     })
+    //     .then(responseData)
+    //     .catch(error('GET', GET_PERSON_LESSONS_NOW));
+};

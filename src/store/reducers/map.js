@@ -1,19 +1,21 @@
 const initialState = {
     rooms:     {
         "1": {
-            points: '10,10 99,10 99,59 10,59',
-            number: '402',
-            textX:  '55',
-            textY:  '35'
+            points:        '10,10 99,10 99,59 10,59',
+            number:        '402',
+            textX:         '55',
+            textY:         '35',
+            centerPointId: '2'
         },
         "2": {
             points: '10,60 99,60 99,94 10,94'
         },
         "3": {
-            points: '10,95 99,95 99,144, 10,144',
-            number: '403',
-            textX:  '55',
-            textY:  '120'
+            points:        '10,95 99,95 99,144, 10,144',
+            number:        '403',
+            textX:         '55',
+            textY:         '120',
+            centerPointId: '6'
         }
     },
     points:    {

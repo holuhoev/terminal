@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import PinchZoomView from 'react-native-pinch-zoom-view';
 
 import BuildingMap from "../common/BuildingMap";
-import { selectRouteFromDevice, selectRooms } from "../../store/selectors/map";
+import { selectRouteFromDeviceToDestinationPoint, selectRooms, selectRouteFromDevice } from "../../store/selectors/map";
 import { BUILDING_ROUTE_TO } from "../../utils/navigation";
 
 
@@ -40,11 +40,12 @@ class BuildingMapScreen extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const to = ownProps.navigation.getParam(BUILDING_ROUTE_TO, null);
+    const fromScreen = ownProps.navigation.getParam("from", "");
+    const params     = ownProps.navigation.getParam("params", {});
 
     return {
         rooms: selectRooms(state),
-        route: selectRouteFromDevice(state, to)
+        route: selectRouteFromDevice(state, fromScreen, params)
     }
 };
 
