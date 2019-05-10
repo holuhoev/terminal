@@ -3,7 +3,8 @@ import { call, takeLatest, delay, put, select, takeEvery } from 'redux-saga/effe
 import {
     CHANGE_SEARCH_QUERY,
     LOAD,
-    LOAD_FAILED, LOAD_MORE,
+    LOAD_FAILED,
+    LOAD_MORE,
     LOAD_SUCCESS,
 } from "../reducers/persons";
 import { getPersons } from "../../api";
@@ -29,8 +30,7 @@ function* fetchPersons(action) {
 
         const personList = yield call(getPersons, params);
 
-        yield put({ type: LOAD_SUCCESS, payload: personList })
-        yield put({ type: LOAD, payload: personList })
+        yield put({ type: LOAD_SUCCESS, payload: personList });
     } catch (error) {
         yield put({ type: LOAD_FAILED, payload: error })
     }

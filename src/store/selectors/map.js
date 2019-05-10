@@ -11,7 +11,7 @@ const selectVertices = (state) => reduce(toGraph, {}, selectMapData(state).edges
 const pointToString  = point => `${ point.x },${ point.y }`;
 const addVertex      = (vertex, all) => ({ ...(all || {}), [vertex]: 1 });
 
-export const selectRooms            = state => values(selectMapData(state).rooms);
+export const selectRooms            = state => values(selectMapData(state).rooms).filter(room => !!room.coordinates);
 export const selectPointById        = state => pointId => selectPoints(state)[pointId];
 export const selectPoints           = (state) => selectMapData(state).points;
 export const selectDestinationPoint = (state, fromScreen, navigationProps) => {
@@ -26,8 +26,9 @@ export const selectDestinationRoom = (state, fromScreen, navigationProps) => {
         case ROUTES.PersonList:
             const roomId = selectPersonRoomId(state, navigationProps.personId);
 
-            return roomId ? selectMapData(state).rooms[roomId] : null;
+            const room = roomId ? selectMapData(state).rooms[roomId] : null;
 
+            return room;
         default:
             return null;
     }
@@ -39,8 +40,8 @@ export const selectRouteFromDevice = (state, fromScreen, navigationProps) => {
     return selectRouteFromDeviceToDestinationPoint(state, destPoint);
 };
 
-export const selectRouteFromDeviceToDestinationPoint = (state, destinationPoint) => {
-    if (!destinationPoint) {
+export const selectRouteFromDeviceToDestinationPoint = (state, destinationPointId) => {
+    if (!destinationPointId) {
         return null;
     }
 
@@ -49,7 +50,7 @@ export const selectRouteFromDeviceToDestinationPoint = (state, destinationPoint)
 
     const graph = new Graph(vertices);
 
-    return graph.shortestPath(devicePointId, destinationPoint)
+    return graph.shortestPath(devicePointId.toString(), destinationPointId.toString())
         .concat([devicePointId])
         .reverse()
         .map(selectPointById(state))

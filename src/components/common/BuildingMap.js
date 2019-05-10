@@ -1,29 +1,30 @@
 import React, { Fragment } from 'react'
 import Svg, { Polygon, Polyline, Text } from "react-native-svg";
 
+// { item.number && (
+//     <Text
+//         fill="white"
+//         fontWeight="bold"
+//         x={ item.textX }
+//         y={ item.textY }
+//         fontSize="16"
+//         textAnchor={ "middle" }
+//     >
+//         { item.number }
+//     </Text>
+// ) }
+
 function Room(item) {
 
     return (
         <Fragment>
             <Polygon
-                points={ item.points }
+                points={ item.coordinates }
                 fill="#D8D8D8"
                 stroke="#979797"
                 strokeWidth={ 1 }
                 opacity={ 0.5 }
             />
-            { item.number && (
-                <Text
-                    fill="white"
-                    fontWeight="bold"
-                    x={ item.textX }
-                    y={ item.textY }
-                    fontSize="16"
-                    textAnchor={ "middle" }
-                >
-                    { item.number }
-                </Text>
-            ) }
         </Fragment>
     )
 }

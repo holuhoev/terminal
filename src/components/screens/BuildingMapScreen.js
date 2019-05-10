@@ -20,6 +20,7 @@ class BuildingMapScreen extends React.Component {
 
     render() {
         const { rooms, route } = this.props;
+        console.log("route:");
         console.log(route);
 
         return (

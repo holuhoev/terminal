@@ -1,4 +1,3 @@
-
 export const selectLessons = state => state.schedule.lessons;
 
 export const selectPersonLessons = (state, personId) => selectLessons(state).data[personId];

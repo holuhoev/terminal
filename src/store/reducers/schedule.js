@@ -29,7 +29,7 @@ const schedule = (state = initialState, action = {}) => {
     }
 };
 
-const lessons = (state = initialState, action = {}) => {
+const lessons = (state = {}, action = {}) => {
     switch (action.type) {
 
         case LOAD_PERSON_NOW_LESSON:
@@ -43,17 +43,19 @@ const lessons = (state = initialState, action = {}) => {
 
             return {
                 ...state,
-                data: {
+                data:    {
                     ...state.data,
                     [action.payload.personId]: action.payload.lessonList
-                }
+                },
+                loading: false
             };
 
         case LOAD_PERSON_NOW_LESSON_FAIL:
 
             return {
                 ...state,
-                error: action.payload
+                error:   action.payload,
+                loading: false
             };
 
         default:

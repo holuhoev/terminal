@@ -31,7 +31,6 @@ class EventsScreen extends React.Component {
     }
 
     onOpenUrl = (url) => {
-        console.log("Open url: " + url);
         this.setState({ isWebViewOpened: true, url: url });
     };
 

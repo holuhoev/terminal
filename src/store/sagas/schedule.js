@@ -19,8 +19,6 @@ function* fetchPersonNowLessons(action) {
 
         const lessons = yield call(getPersonNowLessons, personId);
 
-        console.log("lessons:" + lessons);
-
         yield put({
             type:    LOAD_PERSON_NOW_LESSON_SUCCESS,
             payload: {

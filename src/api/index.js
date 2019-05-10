@@ -5,7 +5,8 @@ import {
     GET_ANNOUNCEMENTS, GET_BUILDING_MAP, GET_BUILDINGS,
     GET_CHAIRS, GET_DEVICE,
     GET_EVENTS,
-    GET_NEWS, GET_PERSON_LESSONS_NOW,
+    GET_NEWS,
+    GET_PERSON_LESSONS_NOW,
     GET_PERSONS
 } from "../utils/url";
 
@@ -31,7 +32,6 @@ export const getPersons = ({ searchQuery, page }) => {
 };
 
 export const getChairs = () => {
-    console.log("chair request");
 
     return axios
         .get(GET_CHAIRS)
@@ -40,7 +40,6 @@ export const getChairs = () => {
 };
 
 export const getNews = ({ terminalId }) => {
-    console.log("news request " + terminalId);
 
     return axios
         .get(GET_NEWS, {
@@ -84,7 +83,7 @@ export const getBuildings = () => {
 export const getPersonNowLessons = (personId) => {
 
     return new Promise.resolve([{
-        "auditoriumId": 3,
+        "auditoriumId": 3284,
     }]);
     // return axios
     //     .get(GET_PERSON_LESSONS_NOW, {
@@ -97,7 +96,6 @@ export const getPersonNowLessons = (personId) => {
 };
 
 export const getDevice = deviceId => {
-    console.log("device request:" + deviceId);
 
     return axios
         .get(`${ GET_DEVICE }/${ deviceId }`)
@@ -106,7 +104,6 @@ export const getDevice = deviceId => {
 };
 
 export const getBuildingMap = buildingId => {
-    console.log("building request:" + buildingId);
 
     return axios
         .get(`${ GET_BUILDING_MAP }/${ buildingId }`)
