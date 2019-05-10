@@ -1,18 +1,19 @@
-import { call, takeLatest, put, select } from 'redux-saga/effects'
+import { call, takeLatest, put } from 'redux-saga/effects'
 
 import { getAnnouncements } from "../../api";
 import { LOAD_FAILED, LOAD_SUCCESS, LOAD } from "../reducers/announcements";
-import { selectDeviceId } from "../selectors/device";
+import { LOAD_SUCCESS as LOAD_DEVICE_SUCCESS } from "../reducers/device";
 
 
 export default function* main() {
-    yield takeLatest(LOAD, fetchAnnouncements)
+    yield takeLatest(LOAD, fetchAnnouncements);
+    yield takeLatest(LOAD_DEVICE_SUCCESS, fetchAnnouncements);
 }
 
-function* fetchAnnouncements() {
+function* fetchAnnouncements(action) {
     try {
-        const terminalId = yield select(selectDeviceId);
-        const newsList   = yield call(getAnnouncements, { terminalId });
+        const {id} = action.payload;
+        const newsList   = yield call(getAnnouncements, id);
 
         yield put({ type: LOAD_SUCCESS, payload: newsList })
     } catch (error) {

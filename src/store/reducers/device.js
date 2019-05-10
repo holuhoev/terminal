@@ -1,8 +1,8 @@
 import { createAction } from "../utils";
 
-export const LOAD         = 'terminal/events/LOAD';
-export const LOAD_SUCCESS = 'terminal/events/LOAD_SUCCESS';
-export const LOAD_FAILED  = 'terminal/events/LOAD_FAILED';
+export const LOAD         = 'terminal/device/LOAD';
+export const LOAD_SUCCESS = 'terminal/device/LOAD_SUCCESS';
+export const LOAD_FAILED  = 'terminal/device/LOAD_FAILED';
 
 const initialState = {
     data:    {},
@@ -24,14 +24,16 @@ const reducer = (state = initialState, action = {}) => {
 
             return {
                 ...state,
-                data: action.payload
+                data:    action.payload,
+                loading: false
             };
 
         case LOAD_FAILED:
 
             return {
                 ...state,
-                error: action.payload
+                error:   action.payload,
+                loading: false
             };
 
         default:

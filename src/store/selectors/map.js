@@ -5,13 +5,15 @@ import { selectPersonRoomId } from "./schedule";
 import { ROUTES } from "../../utils/navigation";
 
 
-const selectVertices = (state) => reduce(toGraph, {}, state.map.edges);
+const selectMapData = state => state.map.data;
+
+const selectVertices = (state) => reduce(toGraph, {}, selectMapData(state).edges);
 const pointToString  = point => `${ point.x },${ point.y }`;
 const addVertex      = (vertex, all) => ({ ...(all || {}), [vertex]: 1 });
 
-export const selectRooms            = state => values(state.map.rooms);
+export const selectRooms            = state => values(selectMapData(state).rooms);
 export const selectPointById        = state => pointId => selectPoints(state)[pointId];
-export const selectPoints           = (state) => state.map.points;
+export const selectPoints           = (state) => selectMapData(state).points;
 export const selectDestinationPoint = (state, fromScreen, navigationProps) => {
     const room = selectDestinationRoom(state, fromScreen, navigationProps);
 
@@ -24,7 +26,7 @@ export const selectDestinationRoom = (state, fromScreen, navigationProps) => {
         case ROUTES.PersonList:
             const roomId = selectPersonRoomId(state, navigationProps.personId);
 
-            return roomId ? state.map.rooms[roomId] : null;
+            return roomId ? selectMapData(state).rooms[roomId] : null;
 
         default:
             return null;

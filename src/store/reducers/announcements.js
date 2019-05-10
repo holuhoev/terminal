@@ -1,5 +1,10 @@
 import { createAction } from "../utils";
 
+import {
+    LOAD_SUCCESS as LOAD_DEVICE_SUCCESS
+} from './device'
+
+
 export const LOAD         = 'terminal/announcements/LOAD';
 export const LOAD_SUCCESS = 'terminal/announcements/LOAD_SUCCESS';
 export const LOAD_FAILED  = 'terminal/announcements/LOAD_FAILED';
@@ -13,6 +18,7 @@ const initialState = {
 const reducer = (state = initialState, action = {}) => {
     switch (action.type) {
         case LOAD:
+        case LOAD_DEVICE_SUCCESS:
 
             return {
                 ...state,

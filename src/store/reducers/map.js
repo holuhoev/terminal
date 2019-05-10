@@ -1,4 +1,4 @@
-import { indexBy, prop, map, find, propEq } from "ramda";
+import { indexBy, prop, map, find, propEq, propOr } from "ramda";
 
 import {
     LOAD_SUCCESS as LOAD_DEVICE_SUCCESS
@@ -29,7 +29,6 @@ const reducer = (state = initialState, action = {}) => {
 
         case LOAD_SUCCESS:
 
-            // TODO: нормально размапить
             return {
                 ...state,
                 data:    mapFromServer(action.payload),
@@ -54,7 +53,7 @@ const mapFromServer = data => {
 
     return {
         points: indexBy(prop('id'), points),
-        rooms:  map(mapRoom(points), rooms),
+        rooms:  indexBy(prop('id'), map(mapRoom(points), rooms)),
         edges:  map(mapEdge, edges)
     }
 };
@@ -62,11 +61,13 @@ const mapFromServer = data => {
 const mapRoom = points => room => {
     const { coordinates, id, number } = room;
 
+    const centerPointId = propOr('', 'id')(find(propEq('roomId', id))(points));
+
     return {
         id,
         coordinates,
         number,
-        centerPointId: find(propEq('roomId', id))(points) || ''
+        centerPointId
     }
 };
 

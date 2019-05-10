@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, Image, StyleSheet, View } from 'react-native';
+import { connect } from "react-redux";
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { bindActionCreators } from "redux";
+import { Button } from "react-native-elements";
 
 import { ROUTES } from "../../utils/navigation";
 import bg1 from '../../images/bg_1.jpg'
 import { MainScreenHeader } from "../common/MainScreenHeader";
-import { Button } from "react-native-elements";
 import AnnouncementRunnableLine from "../common/AnnouncementRunnableLine";
 import { selectMainScreenIsLoading } from "../../store/selectors/mainScreen";
-import { bindActionCreators } from "redux";
 import { loadChairs } from "../../store/reducers/chairs";
-import { loadAnnouncements } from "../../store/reducers/announcements";
-import { connect } from "react-redux";
 import logo from "../../images/logo.png";
 import { loadDevice } from "../../store/reducers/device";
 
@@ -31,8 +30,7 @@ class MainMenuScreen extends Component {
     };
 
     componentDidMount() {
-        this.props.loadDevice();
-        // this.props.loadAnnouncements();
+        this.props.loadDevice('3');
         // this.props.loadChairs();
     }
 
@@ -161,7 +159,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     loadChairs,
-    loadAnnouncements,
     loadDevice
 }, dispatch);
 

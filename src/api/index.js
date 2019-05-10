@@ -61,12 +61,12 @@ export const getEvents = ({ terminalId }) => {
         .catch(error('GET', getEventsByTerminal));
 };
 
-export const getAnnouncements = ({ terminalId }) => {
+export const getAnnouncements = (id) => {
 
     return axios
         .get(GET_ANNOUNCEMENTS, {
             params: {
-                terminalId
+                deviceId: id
             }
         })
         .then(responseData)
@@ -97,6 +97,7 @@ export const getPersonNowLessons = (personId) => {
 };
 
 export const getDevice = deviceId => {
+    console.log("device request:" + deviceId);
 
     return axios
         .get(`${ GET_DEVICE }/${ deviceId }`)
@@ -105,6 +106,7 @@ export const getDevice = deviceId => {
 };
 
 export const getBuildingMap = buildingId => {
+    console.log("building request:" + buildingId);
 
     return axios
         .get(`${ GET_BUILDING_MAP }/${ buildingId }`)
