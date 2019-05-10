@@ -30,6 +30,7 @@ function* fetchPersons(action) {
         const personList = yield call(getPersons, params);
 
         yield put({ type: LOAD_SUCCESS, payload: personList })
+        yield put({ type: LOAD, payload: personList })
     } catch (error) {
         yield put({ type: LOAD_FAILED, payload: error })
     }

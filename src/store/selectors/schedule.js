@@ -9,4 +9,4 @@ export const selectPersonRoomId = (state, personId) => {
     return listNotEmpty(personLessons) ? personLessons[0].auditoriumId : null;
 };
 
-const listNotEmpty = list => !!list && list.length > 0
+const listNotEmpty = list => !!list && list.length > 0;

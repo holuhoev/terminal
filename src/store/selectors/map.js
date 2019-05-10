@@ -5,7 +5,7 @@ import { selectPersonRoomId } from "./schedule";
 import { ROUTES } from "../../utils/navigation";
 
 
-const selectVertices = (state) => reduce(toGraph, {}, state.map.relations);
+const selectVertices = (state) => reduce(toGraph, {}, state.map.edges);
 const pointToString  = point => `${ point.x },${ point.y }`;
 const addVertex      = (vertex, all) => ({ ...(all || {}), [vertex]: 1 });
 

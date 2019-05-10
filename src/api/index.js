@@ -2,8 +2,8 @@ import axios from 'axios';
 import { propOr } from 'ramda';
 
 import {
-    GET_ANNOUNCEMENTS, GET_BUILDINGS,
-    GET_CHAIRS,
+    GET_ANNOUNCEMENTS, GET_BUILDING_MAP, GET_BUILDINGS,
+    GET_CHAIRS, GET_DEVICE,
     GET_EVENTS,
     GET_NEWS, GET_PERSON_LESSONS_NOW,
     GET_PERSONS
@@ -94,4 +94,20 @@ export const getPersonNowLessons = (personId) => {
     //     })
     //     .then(responseData)
     //     .catch(error('GET', GET_PERSON_LESSONS_NOW));
+};
+
+export const getDevice = deviceId => {
+
+    return axios
+        .get(`${ GET_DEVICE }/${ deviceId }`)
+        .then(responseData)
+        .catch(error('GET', GET_DEVICE));
+};
+
+export const getBuildingMap = buildingId => {
+
+    return axios
+        .get(`${ GET_BUILDING_MAP }/${ buildingId }`)
+        .then(responseData)
+        .catch(error('GET', GET_BUILDING_MAP));
 };

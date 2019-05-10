@@ -8,4 +8,6 @@ export const GET_ANNOUNCEMENTS       = '/announcement';
 export const GET_TODAY_ANNOUNCEMENTS = '/announcement/today';
 
 export const GET_BUILDINGS          = '/building';
+export const GET_BUILDING_MAP       = '/building/map';
+export const GET_DEVICE             = '/device';
 export const GET_PERSON_LESSONS_NOW = '/lesson/person/now';

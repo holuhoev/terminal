@@ -7,6 +7,8 @@ import event from './event';
 import announcement from './announcement';
 import building from './building';
 import schedule from './schedule';
+import map from './map';
+import device from './device';
 
 
 export default function* main() {
@@ -17,4 +19,6 @@ export default function* main() {
     yield fork(announcement);
     yield fork(building);
     yield fork(schedule);
+    yield fork(map);
+    yield fork(device);
 };

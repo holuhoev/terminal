@@ -13,6 +13,7 @@ import { loadChairs } from "../../store/reducers/chairs";
 import { loadAnnouncements } from "../../store/reducers/announcements";
 import { connect } from "react-redux";
 import logo from "../../images/logo.png";
+import { loadDevice } from "../../store/reducers/device";
 
 
 const title = 'Факультет компьютерных наук';
@@ -30,6 +31,7 @@ class MainMenuScreen extends Component {
     };
 
     componentDidMount() {
+        this.props.loadDevice();
         // this.props.loadAnnouncements();
         // this.props.loadChairs();
     }
@@ -159,7 +161,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     loadChairs,
-    loadAnnouncements
+    loadAnnouncements,
+    loadDevice
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainMenuScreen);
