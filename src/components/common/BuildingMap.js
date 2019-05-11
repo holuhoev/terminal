@@ -1,18 +1,6 @@
 import React, { Fragment } from 'react'
 import Svg, { Polygon, Polyline, Text } from "react-native-svg";
 
-// { item.number && (
-//     <Text
-//         fill="white"
-//         fontWeight="bold"
-//         x={ item.textX }
-//         y={ item.textY }
-//         fontSize="16"
-//         textAnchor={ "middle" }
-//     >
-//         { item.number }
-//     </Text>
-// ) }
 
 function Room(item) {
 
@@ -25,6 +13,18 @@ function Room(item) {
                 strokeWidth={ 1 }
                 opacity={ 0.5 }
             />
+            { item.textCentroid && (
+                <Text
+                    fill="white"
+                    fontWeight="bold"
+                    x={ item.textCentroid[0] }
+                    y={ item.textCentroid[1] }
+                    fontSize="16"
+                    textAnchor={ "middle" }
+                >
+                    { item.number }
+                </Text>
+            ) }
         </Fragment>
     )
 }
@@ -41,7 +41,6 @@ class BuildingMap extends React.Component {
                 height="100%"
                 width="100%"
             >
-
                 {
                     rooms.map((item, i) => (
                         <Room

@@ -11,6 +11,7 @@
     "build-android-prod": "export ENVFILE=.env.prod && cd android && ./gradlew assembleRelease && cd .."
   },
   "dependencies": {
+    "@mapbox/polylabel": "^1.0.2",
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",

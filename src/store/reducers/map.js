@@ -3,6 +3,7 @@ import { indexBy, prop, map, find, propEq, propOr } from "ramda";
 import {
     LOAD_SUCCESS as LOAD_DEVICE_SUCCESS
 } from './device'
+import { calculateCentroid } from "../../utils/map";
 
 
 export const LOAD         = 'terminal/map/LOAD';
@@ -62,12 +63,14 @@ const mapRoom = points => room => {
     const { coordinates, id, number } = room;
 
     const centerPointId = propOr('', 'id')(find(propEq('roomId', id))(points));
+    const centroid      = calculateCentroid(coordinates);
 
     return {
         id,
         coordinates,
         number,
-        centerPointId
+        centerPointId,
+        textCentroid: centroid
     }
 };
 
