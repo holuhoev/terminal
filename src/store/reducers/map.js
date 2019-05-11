@@ -14,8 +14,7 @@ const initialState = {
     loading: false,
     error:   null,
     data:    {},
-    floor:   4
-
+    floor:   3
 };
 
 const reducer = (state = initialState, action = {}) => {
@@ -53,14 +52,14 @@ const mapFromServer = data => {
     const { points, edges, elements } = data;
 
     return {
-        points: indexBy(prop('id'), points),
-        elements:  indexBy(prop('id'), map(mapElement(points), elements)),
-        edges:  map(mapEdge, edges)
+        points:   indexBy(prop('id'), points),
+        elements: indexBy(prop('id'), map(mapElement(points), elements)),
+        edges:    map(mapEdge, edges)
     }
 };
 
 const mapElement = points => element => {
-    const { coordinates, id, label } = element;
+    const { coordinates, id, label, floor, type } = element;
 
     const centerPointId = propOr('', 'id')(find(propEq('elementId', id))(points));
     const centroid      = calculateCentroid(coordinates);
@@ -70,6 +69,8 @@ const mapElement = points => element => {
         coordinates,
         label,
         centerPointId,
+        floor,
+        type,
         textCentroid: centroid
     }
 };
@@ -83,4 +84,11 @@ const mapEdge = edge => {
     ]
 };
 
+
+export const MAP_ELEMENTS_TYPES = {
+    ROOM:     'ROOM',
+    CORRIDOR: 'CORRIDOR',
+    DOOR:     'DOOR',
+    STAIRS:   'STAIRS'
+};
 export default reducer;

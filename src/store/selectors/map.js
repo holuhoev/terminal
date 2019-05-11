@@ -41,7 +41,10 @@ const selectVertices = (state) => reduce(toGraph, {}, selectMapData(state).edges
 const pointToString  = point => `${ point.x },${ point.y }`;
 const addVertex      = (vertex, all) => ({ ...(all || {}), [vertex]: 1 });
 
-export const selectElements  = state => values(selectMapData(state).elements).filter(element => !!element.coordinates);
+export const selectElementsByFloor = (state, floor) => values(selectMapData(state).elements)
+    .filter(element => !!element.coordinates && element.floor === floor);
+
+export const selectElements  = state => selectElementsByFloor(state, state.map.floor);
 export const selectPointById = state => pointId => selectPoints(state)[pointId];
 export const selectPoints    = (state) => selectMapData(state).points;
 

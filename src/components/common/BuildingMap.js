@@ -1,6 +1,13 @@
 import React, { Fragment } from 'react'
 import Svg, { Polygon, Polyline, Text } from "react-native-svg";
+import { MAP_ELEMENTS_TYPES } from "../../store/reducers/map";
 
+const isElementHasLabel = element => {
+
+    return element.type === MAP_ELEMENTS_TYPES.ROOM
+        && !!element.textCentroid
+        && !!element.label;
+};
 
 function Element(item) {
 
@@ -13,7 +20,7 @@ function Element(item) {
                 strokeWidth={ 1 }
                 opacity={ 0.5 }
             />
-            { item.textCentroid && (
+            { isElementHasLabel(item) && (
                 <Text
                     fill="white"
                     fontWeight="bold"
