@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import Svg, { Polygon, Polyline, Text } from "react-native-svg";
+import Svg, { Polygon, Polyline, Rect, Text } from "react-native-svg";
 import { MAP_ELEMENTS_TYPES } from "../../store/reducers/map";
 
 const isElementHasLabel = element => {
@@ -26,7 +26,7 @@ function Element(item) {
                     fontWeight="bold"
                     x={ item.textCentroid[0] }
                     y={ item.textCentroid[1] }
-                    fontSize="16"
+                    fontSize="6"
                     textAnchor={ "middle" }
                 >
                     { item.label }
@@ -45,8 +45,8 @@ class BuildingMap extends React.Component {
 
 
             <Svg
-                height="100%"
-                width="100%"
+                height='100%'
+                width='100%'
             >
                 {
                     elements.map((item, i) => (

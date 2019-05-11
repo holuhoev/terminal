@@ -25,14 +25,11 @@ class BuildingMapScreen extends React.Component {
             <PinchZoomView
                 maxScale={ 10 }
             >
-                <View style={ {
-                    flex: 1
-                } }>
+
                     <BuildingMap
                         elements={ elements }
                         route={ route }
                     />
-                </View>
             </PinchZoomView>
         )
     }
