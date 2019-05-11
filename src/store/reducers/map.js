@@ -14,7 +14,7 @@ const initialState = {
     loading: false,
     error:   null,
     data:    {},
-    floor:   3
+    floor:   4
 };
 
 const reducer = (state = initialState, action = {}) => {

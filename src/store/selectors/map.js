@@ -13,6 +13,7 @@ export const selectRouteFromDevice = (state, fromScreen, navigationProps) => {
 
 export const selectDestinationPoint = (state, fromScreen, navigationProps) => {
     const element = selectDestinationElement(state, fromScreen, navigationProps);
+    console.log(element);
 
     return element ? element.pointId : null
 };

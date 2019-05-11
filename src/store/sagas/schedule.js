@@ -14,7 +14,6 @@ export default function* main() {
 
 function* fetchPersonNowLessons(action) {
     try {
-        yield delay(3000);
         const personId = action.payload;
 
         const lessons = yield call(getPersonNowLessons, personId);
