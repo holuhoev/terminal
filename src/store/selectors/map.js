@@ -14,7 +14,7 @@ export const selectRouteFromDevice = (state, fromScreen, navigationProps) => {
 export const selectDestinationPoint = (state, fromScreen, navigationProps) => {
     const element = selectDestinationElement(state, fromScreen, navigationProps);
 
-    return element ? element.centerPointId : null
+    return element ? element.pointId : null
 };
 
 export const selectRouteFromDeviceToDestinationPoint = (state, destinationPointId) => {

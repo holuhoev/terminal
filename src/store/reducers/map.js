@@ -1,4 +1,4 @@
-import { indexBy, prop, map, find, propEq, propOr } from "ramda";
+import { indexBy, prop, map, find, propEq } from "ramda";
 
 import {
     LOAD_SUCCESS as LOAD_DEVICE_SUCCESS
@@ -49,31 +49,49 @@ const reducer = (state = initialState, action = {}) => {
 };
 
 const mapFromServer = data => {
-    const { points, edges, elements } = data;
+    const { points, edges, elements, schemes } = data;
+
+    const getFloor = getFloorByScheme(schemes);
 
     return {
-        points:   indexBy(prop('id'), points),
-        elements: indexBy(prop('id'), map(mapElement(points), elements)),
+        points:   indexBy(prop('id'), map(mapPoint(getFloor), points)),
+        elements: indexBy(prop('id'), map(mapElement(getFloor), elements)),
         edges:    map(mapEdge, edges)
     }
 };
 
-const mapElement = points => element => {
-    const { coordinates, id, label, floor, type } = element;
+const mapPoint = getFloor => point => {
+    const { buildingSchemeId, x, y, id } = point;
 
-    const centerPointId = propOr('', 'id')(find(propEq('elementId', id))(points));
-    const centroid      = calculateCentroid(coordinates);
+    const floor = getFloor(buildingSchemeId);
+
+    return {
+        x,
+        y,
+        id,
+        floor
+    }
+};
+
+
+const mapElement = getFloor => element => {
+    const { coordinates, id, label, type, buildingSchemeId, pointId } = element;
+
+    const floor        = getFloor(buildingSchemeId);
+    const textCentroid = calculateCentroid(coordinates);
 
     return {
         id,
+        type,
         coordinates,
         label,
-        centerPointId,
+        pointId,
         floor,
-        type,
-        textCentroid: centroid
+        textCentroid
     }
 };
+
+const getFloorByScheme = schemes => schemeId => prop('floor')(find(propEq('id', schemeId))(schemes));
 
 const mapEdge = edge => {
     const { leftPointId, rightPointId } = edge;
