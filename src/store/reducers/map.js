@@ -50,25 +50,25 @@ const reducer = (state = initialState, action = {}) => {
 };
 
 const mapFromServer = data => {
-    const { points, edges, rooms } = data;
+    const { points, edges, elements } = data;
 
     return {
         points: indexBy(prop('id'), points),
-        rooms:  indexBy(prop('id'), map(mapRoom(points), rooms)),
+        elements:  indexBy(prop('id'), map(mapElement(points), elements)),
         edges:  map(mapEdge, edges)
     }
 };
 
-const mapRoom = points => room => {
-    const { coordinates, id, number } = room;
+const mapElement = points => element => {
+    const { coordinates, id, label } = element;
 
-    const centerPointId = propOr('', 'id')(find(propEq('roomId', id))(points));
+    const centerPointId = propOr('', 'id')(find(propEq('elementId', id))(points));
     const centroid      = calculateCentroid(coordinates);
 
     return {
         id,
         coordinates,
-        number,
+        label,
         centerPointId,
         textCentroid: centroid
     }

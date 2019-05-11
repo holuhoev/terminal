@@ -7,7 +7,7 @@ import {
     GET_EVENTS,
     GET_NEWS,
     GET_PERSON_LESSONS_NOW,
-    GET_PERSONS
+    GET_PERSONS, GET_ROOMS
 } from "../utils/url";
 
 
@@ -109,4 +109,17 @@ export const getBuildingMap = buildingId => {
         .get(`${ GET_BUILDING_MAP }/${ buildingId }`)
         .then(responseData)
         .catch(error('GET', GET_BUILDING_MAP));
+};
+
+
+export const getRooms = (buildingId) => {
+
+    return axios
+        .get(GET_ROOMS, {
+            params: {
+                buildingId
+            }
+        })
+        .then(responseData)
+        .catch(error('GET', GET_ROOMS))
 };

@@ -11,6 +11,7 @@ import announcements from "./reducers/announcements";
 import buildings from "./reducers/buildings";
 import map from "./reducers/map";
 import schedule from "./reducers/schedule";
+import rooms from "./reducers/rooms";
 
 const rootReducer = combineReducers({
     persons,
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
     announcements,
     map,
     buildings,
-    schedule
+    schedule,
+    rooms
 });
 
 const sagaMiddleware = createSagaMiddleware();

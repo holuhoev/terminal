@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import Svg, { Polygon, Polyline, Text } from "react-native-svg";
 
 
-function Room(item) {
+function Element(item) {
 
     return (
         <Fragment>
@@ -22,7 +22,7 @@ function Room(item) {
                     fontSize="16"
                     textAnchor={ "middle" }
                 >
-                    { item.number }
+                    { item.label }
                 </Text>
             ) }
         </Fragment>
@@ -32,7 +32,7 @@ function Room(item) {
 class BuildingMap extends React.Component {
 
     render() {
-        const { rooms, route } = this.props;
+        const { elements, route } = this.props;
 
         return (
 
@@ -42,8 +42,8 @@ class BuildingMap extends React.Component {
                 width="100%"
             >
                 {
-                    rooms.map((item, i) => (
-                        <Room
+                    elements.map((item, i) => (
+                        <Element
                             { ...item }
                             key={ i.toString() }
                         />
