@@ -2,10 +2,10 @@ import React from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { View } from 'react-native';
-import PinchZoomView from 'react-native-pinch-zoom-view';
 
 import BuildingMap from "../common/BuildingMap";
 import { selectElements, selectRouteFromDevice } from "../../store/selectors/map";
+import SchemeMenu from "../common/SchemeMenu";
 
 
 class BuildingMapScreen extends React.Component {
@@ -20,17 +20,14 @@ class BuildingMapScreen extends React.Component {
 
     render() {
         const { elements, route } = this.props;
-
         return (
-            <PinchZoomView
-                maxScale={ 10 }
-            >
-
-                    <BuildingMap
-                        elements={ elements }
-                        route={ route }
-                    />
-            </PinchZoomView>
+            <View style={ { flex: 1 } }>
+                <SchemeMenu/>
+                <BuildingMap
+                    elements={ elements }
+                    route={ route }
+                />
+            </View>
         )
     }
 }

@@ -1,4 +1,4 @@
-import { reduce, values } from "ramda";
+import { reduce, values, findIndex, propEq } from "ramda";
 import Graph from "../../utils/graph";
 import { selectDevicePointId } from "./device";
 import { selectPersonRoom } from "./schedule";
@@ -13,7 +13,6 @@ export const selectRouteFromDevice = (state, fromScreen, navigationProps) => {
 
 export const selectDestinationPoint = (state, fromScreen, navigationProps) => {
     const element = selectDestinationElement(state, fromScreen, navigationProps);
-    console.log(element);
 
     return element ? element.pointId : null
 };
@@ -36,16 +35,19 @@ export const selectRouteFromDeviceToDestinationPoint = (state, destinationPointI
         .join(' ');
 };
 
-const selectMapData = state => state.map.data;
-
+const selectMapData  = state => state.map.data;
 const selectVertices = (state) => reduce(toGraph, {}, selectMapData(state).edges);
 const pointToString  = point => `${ point.x },${ point.y }`;
 const addVertex      = (vertex, all) => ({ ...(all || {}), [vertex]: 1 });
 
-export const selectElementsByFloor = (state, floor) => values(selectMapData(state).elements)
-    .filter(element => !!element.coordinates && element.floor === floor);
 
-export const selectElements  = state => selectElementsByFloor(state, state.map.floor);
+export const selectSchemes            = state => selectMapData(state).schemes;
+export const selectActiveSchemeIndex  = state => findIndex(propEq('id', selectSchemeId(state)))(selectSchemes(state));
+export const selectSchemeId           = state => selectSchemes(state)[state.map.buildingSchemeIndex].id;
+export const selectElementsBySchemeId = (state, schemeId) => values(selectMapData(state).elements)
+    .filter(element => !!element.coordinates && element.buildingSchemeId === schemeId);
+
+export const selectElements  = state => selectElementsBySchemeId(state, selectSchemeId(state));
 export const selectPointById = state => pointId => selectPoints(state)[pointId];
 export const selectPoints    = (state) => selectMapData(state).points;
 

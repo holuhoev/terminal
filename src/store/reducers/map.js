@@ -3,22 +3,39 @@ import { indexBy, prop, map, find, propEq } from "ramda";
 import {
     LOAD_SUCCESS as LOAD_DEVICE_SUCCESS
 } from './device'
-import { calculateCentroid } from "../../utils/map";
+import { calculateCentroid, calculateStairsLines } from "../../utils/map";
+import { createAction } from "../utils";
 
 
 export const LOAD         = 'terminal/map/LOAD';
 export const LOAD_SUCCESS = 'terminal/map/LOAD_SUCCESS';
 export const LOAD_FAILED  = 'terminal/map/LOAD_FAILED';
 
+export const CHANGE_ACTIVE_SCHEME_INDEX = 'terminal/map/CHANGE_ACTIVE_SCHEME_INDEX';
+
+export const changeActiveSchemeIndex = createAction(CHANGE_ACTIVE_SCHEME_INDEX);
+
 const initialState = {
-    loading: false,
-    error:   null,
-    data:    {},
-    floor:  2
+    loading:             false,
+    error:               null,
+    data:                {
+        schemes:  [],
+        points:   {},
+        elements: {},
+        edges:    []
+    },
+    buildingSchemeIndex: 0,
+    buildingId:          2167
 };
 
 const reducer = (state = initialState, action = {}) => {
     switch (action.type) {
+        case CHANGE_ACTIVE_SCHEME_INDEX:
+
+            return {
+                ...state,
+                buildingSchemeIndex: action.payload
+            }
 
         case LOAD_DEVICE_SUCCESS:
 
@@ -56,7 +73,8 @@ const mapFromServer = data => {
     return {
         points:   indexBy(prop('id'), map(mapPoint(getFloor), points)),
         elements: indexBy(prop('id'), map(mapElement(getFloor), elements)),
-        edges:    map(mapEdge, edges)
+        edges:    map(mapEdge, edges),
+        schemes:  schemes
     }
 };
 
@@ -79,6 +97,7 @@ const mapElement = getFloor => element => {
 
     const floor        = getFloor(buildingSchemeId);
     const textCentroid = calculateCentroid(coordinates);
+    const stairLines   = getStairLines(element);
 
     return {
         id,
@@ -87,11 +106,22 @@ const mapElement = getFloor => element => {
         label,
         pointId,
         floor,
-        textCentroid
+        textCentroid,
+        buildingSchemeId,
+        lines: stairLines
     }
 };
 
 const getFloorByScheme = schemes => schemeId => prop('floor')(find(propEq('id', schemeId))(schemes));
+
+const getStairLines = element => {
+    if (!isElementIsStair(element))
+        return [];
+
+    return calculateStairsLines(element.coordinates)
+};
+
+export const isElementIsStair = element => element.type === MAP_ELEMENTS_TYPES.STAIRS;
 
 const mapEdge = edge => {
     const { leftPointId, rightPointId } = edge;
