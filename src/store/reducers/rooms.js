@@ -1,16 +1,17 @@
-import { createAction } from "../utils";
+import { prop, indexBy, map } from 'ramda';
 
 import {
     LOAD_SUCCESS as LOAD_DEVICE_SUCCESS
-} from './device'
+} from '../reducers/device'
 
 
-export const LOAD         = 'terminal/announcements/LOAD';
-export const LOAD_SUCCESS = 'terminal/announcements/LOAD_SUCCESS';
-export const LOAD_FAILED  = 'terminal/announcements/LOAD_FAILED';
+export const LOAD         = 'terminal/rooms/LOAD';
+export const LOAD_SUCCESS = 'terminal/rooms/LOAD_SUCCESS';
+export const LOAD_FAILED  = 'terminal/rooms/LOAD_FAILED';
 
 const initialState = {
-    data:    [],
+    data:    {},
+    idList:  [],
     loading: false,
     error:   null
 };
@@ -30,7 +31,8 @@ const reducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 loading: false,
-                data:    action.payload
+                idList:  map(prop('id'), action.payload),
+                data:    indexBy(prop('id'), action.payload)
             };
 
         case LOAD_FAILED:
@@ -47,5 +49,3 @@ const reducer = (state = initialState, action = {}) => {
 };
 
 export default reducer;
-
-export const loadAnnouncements = createAction(LOAD);

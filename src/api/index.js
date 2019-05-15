@@ -2,11 +2,12 @@ import axios from 'axios';
 import { propOr } from 'ramda';
 
 import {
-    GET_ANNOUNCEMENTS, GET_BUILDINGS,
-    GET_CHAIRS,
+    GET_ANNOUNCEMENTS, GET_BUILDING_MAP, GET_BUILDINGS,
+    GET_CHAIRS, GET_DEVICE,
     GET_EVENTS,
     GET_NEWS,
-    GET_PERSONS
+    GET_PERSON_LESSONS_NOW,
+    GET_PERSONS, GET_ROOMS
 } from "../utils/url";
 
 
@@ -31,7 +32,6 @@ export const getPersons = ({ searchQuery, page }) => {
 };
 
 export const getChairs = () => {
-    console.log("chair request");
 
     return axios
         .get(GET_CHAIRS)
@@ -40,7 +40,6 @@ export const getChairs = () => {
 };
 
 export const getNews = ({ terminalId }) => {
-    console.log("news request " + terminalId);
 
     return axios
         .get(GET_NEWS, {
@@ -61,12 +60,12 @@ export const getEvents = ({ terminalId }) => {
         .catch(error('GET', getEventsByTerminal));
 };
 
-export const getAnnouncements = ({ terminalId }) => {
+export const getAnnouncements = (id) => {
 
     return axios
         .get(GET_ANNOUNCEMENTS, {
             params: {
-                terminalId
+                deviceId: id
             }
         })
         .then(responseData)
@@ -81,3 +80,46 @@ export const getBuildings = () => {
         .catch(error('GET', GET_CHAIRS));
 };
 
+export const getPersonNowLessons = (personId) => {
+
+    return new Promise.resolve([{
+        "auditoriumId": 3284,
+    }]);
+    // return axios
+    //     .get(GET_PERSON_LESSONS_NOW, {
+    //         params: {
+    //             personId
+    //         }
+    //     })
+    //     .then(responseData)
+    //     .catch(error('GET', GET_PERSON_LESSONS_NOW));
+};
+
+export const getDevice = deviceId => {
+
+    return axios
+        .get(`${ GET_DEVICE }/${ deviceId }`)
+        .then(responseData)
+        .catch(error('GET', GET_DEVICE));
+};
+
+export const getBuildingMap = buildingId => {
+
+    return axios
+        .get(`${ GET_BUILDING_MAP }/${ buildingId }`)
+        .then(responseData)
+        .catch(error('GET', GET_BUILDING_MAP));
+};
+
+
+export const getRooms = (buildingId) => {
+
+    return axios
+        .get(GET_ROOMS, {
+            params: {
+                buildingId
+            }
+        })
+        .then(responseData)
+        .catch(error('GET', GET_ROOMS))
+};

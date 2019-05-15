@@ -6,7 +6,7 @@ import { Text, StyleSheet, View } from 'react-native';
 class PersonListItem extends React.PureComponent {
 
     render() {
-        const { fio, avatarUrl, faculties, url, openUrl, getRoute } = this.props;
+        const { id, fio, avatarUrl, faculties, url, openUrl, getRoute } = this.props;
 
         return (
             <ListItem
@@ -40,7 +40,7 @@ class PersonListItem extends React.PureComponent {
                     <Button
                         title={ "Местоположение" }
                         type={ 'outline' }
-                        onPress={ () => getRoute('7') }
+                        onPress={ () => getRoute(id) }
                     />
                 ) }
             />

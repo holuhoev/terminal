@@ -2,11 +2,10 @@ import React from 'react';
 import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { View } from 'react-native';
-import PinchZoomView from 'react-native-pinch-zoom-view';
 
 import BuildingMap from "../common/BuildingMap";
-import { selectRouteFromDevice, selectRooms } from "../../store/selectors/map";
-import { BUILDING_ROUTE_TO } from "../../utils/navigation";
+import { selectElements, selectRouteFromDevice } from "../../store/selectors/map";
+import SchemeMenu from "../common/SchemeMenu";
 
 
 class BuildingMapScreen extends React.Component {
@@ -20,31 +19,26 @@ class BuildingMapScreen extends React.Component {
     };
 
     render() {
-        const { rooms, route } = this.props;
-
+        const { elements, route } = this.props;
         return (
-            <PinchZoomView
-                maxScale={ 10 }
-            >
-                <View style={ {
-                    flex: 1
-                } }>
-                    <BuildingMap
-                        rooms={ rooms }
-                        route={ route }
-                    />
-                </View>
-            </PinchZoomView>
+            <View style={ { flex: 1 } }>
+                <SchemeMenu/>
+                <BuildingMap
+                    elements={ elements }
+                    route={ route }
+                />
+            </View>
         )
     }
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const to = ownProps.navigation.getParam(BUILDING_ROUTE_TO, null);
+    const fromScreen = ownProps.navigation.getParam("from", "");
+    const params     = ownProps.navigation.getParam("params", {});
 
     return {
-        rooms: selectRooms(state),
-        route: selectRouteFromDevice(state, to)
+        elements: selectElements(state),
+        route:    selectRouteFromDevice(state, fromScreen, params)
     }
 };
 
