@@ -87,7 +87,8 @@ const mapPoint = getFloor => point => {
         x,
         y,
         id,
-        floor
+        floor,
+        buildingSchemeId
     }
 };
 

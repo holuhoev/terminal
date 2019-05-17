@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { View } from 'react-native';
 
 import BuildingMap from "../common/BuildingMap";
-import { selectElements, selectRouteFromDevice } from "../../store/selectors/map";
+import { selectElements, selectRoute, selectRouteStairsPoint } from "../../store/selectors/map";
 import SchemeMenu from "../common/SchemeMenu";
 
 
@@ -19,13 +19,15 @@ class BuildingMapScreen extends React.Component {
     };
 
     render() {
-        const { elements, route } = this.props;
+        const { elements, route, stairsPoint } = this.props;
+
         return (
             <View style={ { flex: 1 } }>
                 <SchemeMenu/>
                 <BuildingMap
                     elements={ elements }
                     route={ route }
+                    stairsPoint={ stairsPoint }
                 />
             </View>
         )
@@ -37,8 +39,9 @@ const mapStateToProps = (state, ownProps) => {
     const params     = ownProps.navigation.getParam("params", {});
 
     return {
-        elements: selectElements(state),
-        route:    selectRouteFromDevice(state, fromScreen, params)
+        elements:    selectElements(state),
+        route:       selectRoute(state, fromScreen, params),
+        stairsPoint: selectRouteStairsPoint(state, fromScreen, params)
     }
 };
 

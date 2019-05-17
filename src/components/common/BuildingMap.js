@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import PinchZoomView from "react-native-pinch-zoom-view";
-import Svg, { ClipPath, G, Line, Polygon, Polyline, Rect, Text } from "react-native-svg";
+import Svg, { Circle, ClipPath, G, Line, Polygon, Polyline, Rect, Text } from "react-native-svg";
 
 import { isElementIsStair, MAP_ELEMENTS_TYPES } from "../../store/reducers/map";
 
@@ -73,7 +73,7 @@ function Element(item) {
 class BuildingMap extends React.Component {
 
     render() {
-        const { elements, route } = this.props;
+        const { elements, route, stairsPoint } = this.props;
 
         return (
 
@@ -97,8 +97,18 @@ class BuildingMap extends React.Component {
                             points={ route }
                             fill="none"
                             stroke={ "#26c2ed" }
-                            strokeWidth="1.5"
+                            strokeWidth="2"
                             strokeLinecap={ "round" }
+                        />
+                    ) }
+                    { stairsPoint && (
+                        <Circle
+                            cx={ stairsPoint.x }
+                            cy={ stairsPoint.y }
+                            r="4"
+                            stroke={ "#274fed" }
+                            fill={ "none" }
+                            strokeWidth={ "2" }
                         />
                     ) }
                 </Svg>
