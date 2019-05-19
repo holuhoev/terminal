@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, Image, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import { connect } from "react-redux";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { bindActionCreators } from "redux";
 import { Button } from "react-native-elements";
+import { ImageBackground } from "react-native";
 
 import { ROUTES } from "../../utils/navigation";
 import bg1 from '../../images/bg_1.jpg'
+import bg2 from '../../images/bg_2.jpg'
 import { MainScreenHeader } from "../common/MainScreenHeader";
 import AnnouncementRunnableLine from "../common/AnnouncementRunnableLine";
 import { selectMainScreenIsLoading } from "../../store/selectors/mainScreen";
@@ -15,7 +17,7 @@ import logo from "../../images/logo.png";
 import { loadDevice } from "../../store/reducers/device";
 
 
-const title = 'Факультет компьютерных наук';
+// const title = 'Мясницкая, 20';
 
 class MainMenuScreen extends Component {
 
@@ -45,21 +47,36 @@ class MainMenuScreen extends Component {
     }
 
     render() {
-        const { loading } = this.props;
+        const { loading,title } = this.props;
 
         if (loading) {
             return this.renderLogo()
         }
 
         return (
-            <View style={ {
-                flex: 1,
-            } }>
-
-                <MainScreenHeader
-                    title={ title }
-                    imageSrc={ bg1 }
-                />
+            <ImageBackground imageStyle={ {
+                height:  300,
+                flex:    1,
+                opacity: 0.8
+            } }
+                             source={ bg2 }
+                             style={ {
+                                 flex: 1,
+                             } }>
+                <Text style={ {
+                    color:           '#FFF',
+                    backgroundColor: 'rgba(52,52,52,0.2)',
+                    fontSize:        28,
+                    fontWeight:      'bold',
+                    textAlign:       'center',
+                    paddingTop:      60
+                } }>
+                    { title }
+                </Text>
+                {/*<MainScreenHeader*/ }
+                {/*    title={ title }*/ }
+                {/*    imageSrc={ bg2 }*/ }
+                {/*/>*/ }
                 <View style={ styles.container }>
                     <Button
                         icon={ {
@@ -82,7 +99,7 @@ class MainMenuScreen extends Component {
                             />
                         }
                         onPress={ () => this.props.navigation.navigate(ROUTES.NewsList) }
-                        buttonStyle={ [styles.cell, styles.blue2] }
+                        buttonStyle={ [styles.cell, styles.blue3] }
                         type='outline'
                         titleStyle={ styles.buttonTitle }
                         title={ 'Новости' }
@@ -92,18 +109,18 @@ class MainMenuScreen extends Component {
                         buttonStyle={ [styles.cell, styles.blue3] }
                         type='outline'
                         titleStyle={ styles.buttonTitle }
-                        title={ 'Сегодня, 26 апреля' }
+                        title={ 'Сегодня, 19 мая' }
                     />
                     <Button
                         onPress={ () => this.props.navigation.navigate(ROUTES.UnitList) }
-                        buttonStyle={ [styles.cell, styles.darkGrey] }
+                        buttonStyle={ [styles.cell, styles.blue2] }
                         type='outline'
                         titleStyle={ styles.buttonTitle }
                         title={ 'Подразделения НИУ ВШЭ' }
                     />
                     <Button
                         onPress={ () => this.props.navigation.navigate(ROUTES.ServiceList) }
-                        buttonStyle={ [styles.cell, styles.darkGrey] }
+                        buttonStyle={ [styles.cell, styles.blue2] }
                         type='outline'
                         titleStyle={ styles.buttonTitle }
                         title={ 'Услуги' }
@@ -117,7 +134,7 @@ class MainMenuScreen extends Component {
                     />
                 </View>
                 {/*<AnnouncementRunnableLine/>*/ }
-            </View>
+            </ImageBackground>
         );
     }
 }
@@ -125,12 +142,13 @@ class MainMenuScreen extends Component {
 const styles = StyleSheet.create({
     container:   {
         flex:            1,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: 'rgba(52,52,52,0.2)',
         flexWrap:        'wrap',
         flexDirection:   'row',
         justifyContent:  'space-around',
         alignItems:      'flex-start',
-        paddingVertical: 20
+        paddingBottom:   30,
+        paddingTop:      80,
     },
     cell:        {
         height:       160,
@@ -167,7 +185,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
 
     return {
-        loading: selectMainScreenIsLoading(state)
+        loading: selectMainScreenIsLoading(state),
+        title:   state.device.data.title
     }
 };
 

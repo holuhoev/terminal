@@ -51,13 +51,13 @@ export const getNews = ({ terminalId }) => {
         .catch(error('GET', GET_NEWS));
 };
 
-export const getEvents = ({ terminalId }) => {
-    const getEventsByTerminal = `${ GET_EVENTS }/${ terminalId } `;
+export const getEvents = ({ deviceId }) => {
+    const getEventsByDevice = `${ GET_EVENTS }/${ deviceId } `;
 
     return axios
-        .get(getEventsByTerminal)
+        .get(getEventsByDevice)
         .then(responseData)
-        .catch(error('GET', getEventsByTerminal));
+        .catch(error('GET', getEventsByDevice));
 };
 
 export const getAnnouncements = (id) => {

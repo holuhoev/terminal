@@ -14,8 +14,8 @@ export default function* main() {
 
 function* fetchEvents() {
     try {
-        const terminalId = yield select(selectDeviceId);
-        const events     = yield call(getEvents, { terminalId });
+        const deviceId = yield select(selectDeviceId);
+        const events     = yield call(getEvents, { deviceId });
 
         yield put({ type: LOAD_SUCCESS, payload: events })
     } catch (error) {

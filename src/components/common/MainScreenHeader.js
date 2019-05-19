@@ -5,7 +5,7 @@ export function MainScreenHeader({ title, imageSrc }) {
 
     return (
         <ImageBackground source={ imageSrc } style={ {
-            height:         100,
+            height:         200,
             width:          '100%',
             justifyContent: 'center',
             alignItems:     'center'
