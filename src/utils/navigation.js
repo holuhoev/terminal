@@ -3,5 +3,7 @@ export const ROUTES = {
     PersonList:  'PersonList',
     NewsList:    'NewsList',
     Events:      'Events',
-    BuildingMap: 'BuildingMap'
+    BuildingMap: 'BuildingMap',
+    UnitList:    'UnitList',
+    ServiceList: 'ServiceList',
 };

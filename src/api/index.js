@@ -7,7 +7,7 @@ import {
     GET_EVENTS,
     GET_NEWS,
     GET_PERSON_LESSONS_NOW,
-    GET_PERSONS, GET_ROOMS
+    GET_PERSONS, GET_ROOMS, GET_SERVICES, GET_UNITS
 } from "../utils/url";
 
 
@@ -122,4 +122,28 @@ export const getRooms = (buildingId) => {
         })
         .then(responseData)
         .catch(error('GET', GET_ROOMS))
+};
+
+export const getUnits = (buildingId) => {
+
+    return axios
+        .get(GET_UNITS, {
+            params: {
+                buildingId
+            }
+        })
+        .then(responseData)
+        .catch(error('GET', GET_UNITS))
+};
+
+export const getServices = (buildingId) => {
+
+    return axios
+        .get(GET_SERVICES, {
+            params: {
+                buildingId
+            }
+        })
+        .then(responseData)
+        .catch(error('GET', GET_SERVICES))
 };

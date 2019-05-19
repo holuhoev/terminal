@@ -6,6 +6,8 @@ import NewsListScreen from "./screens/NewsListScreen";
 import EventsScreen from "./screens/EventsScreen";
 import BuildingMapScreen from "./screens/BuildingMapScreen";
 import MainMenuScreen from "./screens/MainMenuScreen";
+import ServiceListScreen from "./screens/ServiceListScreen";
+import UnitListScreen from "./screens/UnitListScreen";
 
 
 const MainNavigator = createStackNavigator({
@@ -13,7 +15,9 @@ const MainNavigator = createStackNavigator({
     PersonList:  { screen: PersonListScreen },
     NewsList:    { screen: NewsListScreen },
     Events:      { screen: EventsScreen },
-    BuildingMap: { screen: BuildingMapScreen }
+    BuildingMap: { screen: BuildingMapScreen },
+    ServiceList: { screen: ServiceListScreen },
+    UnitList:    { screen: UnitListScreen }
 }, {
     initialRouteName: 'MainMenu'
 });

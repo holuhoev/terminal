@@ -3,6 +3,8 @@ export const GET_CHAIRS  = '/chair';
 export const GET_ROOMS  = '/room';
 export const GET_NEWS    = '/news';
 export const GET_EVENTS  = '/event';
+export const GET_UNITS = '/hseUnit';
+export const GET_SERVICES  = '/hseLocation';
 
 
 export const GET_ANNOUNCEMENTS       = '/announcement';

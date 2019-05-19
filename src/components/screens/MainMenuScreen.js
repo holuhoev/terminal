@@ -95,6 +95,20 @@ class MainMenuScreen extends Component {
                         title={ 'Сегодня, 26 апреля' }
                     />
                     <Button
+                        onPress={ () => this.props.navigation.navigate(ROUTES.UnitList) }
+                        buttonStyle={ [styles.cell, styles.darkGrey] }
+                        type='outline'
+                        titleStyle={ styles.buttonTitle }
+                        title={ 'Подразделения НИУ ВШЭ' }
+                    />
+                    <Button
+                        onPress={ () => this.props.navigation.navigate(ROUTES.ServiceList) }
+                        buttonStyle={ [styles.cell, styles.darkGrey] }
+                        type='outline'
+                        titleStyle={ styles.buttonTitle }
+                        title={ 'Услуги' }
+                    />
+                    <Button
                         onPress={ () => this.props.navigation.navigate(ROUTES.BuildingMap) }
                         buttonStyle={ [styles.cell, styles.darkGrey] }
                         type='outline'

@@ -10,6 +10,8 @@ import schedule from './schedule';
 import map from './map';
 import device from './device';
 import room from './room';
+import unit from "./unit";
+import service from "./service";
 
 
 export default function* main() {
@@ -23,4 +25,6 @@ export default function* main() {
     yield fork(map);
     yield fork(device);
     yield fork(room);
+    yield fork(unit);
+    yield fork(service);
 };
