@@ -93,7 +93,6 @@ class UnitListScreen extends Component {
 
 
     onRouteClick = (unitId) => {
-        // TODO: передавать pointId
         this.props.navigation.navigate(ROUTES.BuildingMap, {
             params: {
                 unitId
