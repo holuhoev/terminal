@@ -39,12 +39,12 @@ export const getChairs = () => {
         .catch(error('GET', GET_CHAIRS))
 };
 
-export const getNews = ({ terminalId }) => {
+export const getNews = ({ deviceId }) => {
 
     return axios
         .get(GET_NEWS, {
             params: {
-                terminalId
+                deviceId
             }
         })
         .then(responseData)

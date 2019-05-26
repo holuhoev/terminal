@@ -11,8 +11,8 @@ export default function* main() {
 
 function* fetchNews() {
     try {
-        const terminalId = yield select(selectDeviceId);
-        const newsList   = yield call(getNews, { terminalId });
+        const deviceId = yield select(selectDeviceId);
+        const newsList   = yield call(getNews, { deviceId });
 
         yield put({ type: LOAD_SUCCESS, payload: newsList })
     } catch (error) {

@@ -18,7 +18,11 @@ class AnnouncementRunnableLine extends Component {
         return (
             <View style={ styles.container }>
                 <TextTicker
-                    style={ { fontSize: 24 } }
+                    style={ {
+                        fontSize:        26,
+                        color:           '#000',
+                        backgroundColor: '#FFF'
+                    } }
                     duration={ 12000 }
                     loop
                     bounce

@@ -47,7 +47,7 @@ class MainMenuScreen extends Component {
     }
 
     render() {
-        const { loading,title } = this.props;
+        const { loading, title } = this.props;
 
         if (loading) {
             return this.renderLogo()
@@ -55,7 +55,7 @@ class MainMenuScreen extends Component {
 
         return (
             <ImageBackground imageStyle={ {
-                height:  300,
+                height:  '93%',
                 flex:    1,
                 opacity: 0.8
             } }
@@ -85,7 +85,7 @@ class MainMenuScreen extends Component {
                             color: "white"
                         } }
                         onPress={ () => this.props.navigation.navigate(ROUTES.PersonList) }
-                        buttonStyle={ [styles.cell, styles.blue] }
+                        buttonStyle={ [styles.cell] }
                         title={ 'Сотрудники' }
                         titleStyle={ styles.buttonTitle }
 
@@ -99,41 +99,41 @@ class MainMenuScreen extends Component {
                             />
                         }
                         onPress={ () => this.props.navigation.navigate(ROUTES.NewsList) }
-                        buttonStyle={ [styles.cell, styles.blue3] }
+                        buttonStyle={ [styles.cell] }
                         type='outline'
                         titleStyle={ styles.buttonTitle }
                         title={ 'Новости' }
                     />
                     <Button
                         onPress={ () => this.props.navigation.navigate(ROUTES.Events) }
-                        buttonStyle={ [styles.cell, styles.blue3] }
+                        buttonStyle={ [styles.cell] }
                         type='outline'
                         titleStyle={ styles.buttonTitle }
                         title={ 'Сегодня, 19 мая' }
                     />
                     <Button
                         onPress={ () => this.props.navigation.navigate(ROUTES.UnitList) }
-                        buttonStyle={ [styles.cell, styles.blue2] }
+                        buttonStyle={ [styles.cell] }
                         type='outline'
                         titleStyle={ styles.buttonTitle }
                         title={ 'Подразделения НИУ ВШЭ' }
                     />
                     <Button
                         onPress={ () => this.props.navigation.navigate(ROUTES.ServiceList) }
-                        buttonStyle={ [styles.cell, styles.blue2] }
+                        buttonStyle={ [styles.cell] }
                         type='outline'
                         titleStyle={ styles.buttonTitle }
                         title={ 'Услуги' }
                     />
                     <Button
                         onPress={ () => this.props.navigation.navigate(ROUTES.BuildingMap) }
-                        buttonStyle={ [styles.cell, styles.darkGrey] }
+                        buttonStyle={ [styles.cell] }
                         type='outline'
                         titleStyle={ styles.buttonTitle }
                         title={ 'Мое местоположение' }
                     />
                 </View>
-                {/*<AnnouncementRunnableLine/>*/ }
+                <AnnouncementRunnableLine/>
             </ImageBackground>
         );
     }
@@ -151,17 +151,18 @@ const styles = StyleSheet.create({
         paddingTop:      80,
     },
     cell:        {
-        height:       160,
-        width:        160,
-        borderRadius: 10,
-        marginBottom: 20
+        height:          160,
+        width:           160,
+        borderRadius:    15,
+        backgroundColor: 'rgba(21,67,238,0.83)',
+        marginBottom:    20
     },
     buttonTitle: {
         fontSize: 18,
         color:    '#FFF'
     },
     blue:        {
-        backgroundColor: 'royalblue'
+        backgroundColor: 'rgba(65,105,225,0.9)'
     },
     blue2:       {
         backgroundColor: 'skyblue'
