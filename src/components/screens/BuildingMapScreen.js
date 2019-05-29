@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import { View } from 'react-native';
 
 import BuildingMap from "../common/BuildingMap";
-import { selectElements, selectRoute, selectRouteStairsPoint } from "../../store/selectors/map";
+import {
+    selectElements,
+    selectRoute,
+    selectRouteStairsPoint
+} from "../../store/selectors/map";
 import SchemeMenu from "../common/SchemeMenu";
 
 
@@ -39,7 +43,7 @@ const mapStateToProps = (state, ownProps) => {
     const params     = ownProps.navigation.getParam("params", {});
 
     return {
-        elements:    selectElements(state),
+        elements:    selectElements(state,fromScreen, params),
         route:       selectRoute(state, fromScreen, params),
         stairsPoint: selectRouteStairsPoint(state, fromScreen, params)
     }

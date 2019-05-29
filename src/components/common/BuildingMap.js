@@ -48,7 +48,7 @@ function Element(item) {
         <Fragment>
             <Polygon
                 points={ item.coordinates }
-                fill={ "#FFF" }
+                fill={ item.isActive ? "rgba(35,100,129,0.73)" : "#FFF" }
                 stroke={ "#236481" }
                 strokeWidth={ 1 }
             />

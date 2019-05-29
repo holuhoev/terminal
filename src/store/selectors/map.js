@@ -3,10 +3,10 @@ import { createSelector } from 'reselect'
 
 import Graph from "../../utils/graph";
 import { selectDevicePointId } from "./device";
-import { selectPersonPointId, selectPersonRoom } from "./schedule";
+import { selectPersonPointId, selectPersonRoom, selectPersonRoomId } from "./schedule";
 import { ROUTES } from "../../utils/navigation";
-import { selectUnitById, selectUnitPointId } from "./units";
-import { selectServicePointId } from "./services";
+import { selectUnitById, selectUnitPointId, selectUnitSchemeElementId } from "./units";
+import { selectServicePointId, selectServiceRoomId } from "./services";
 
 
 const selectMapData            = state => state.map.data;
@@ -16,11 +16,27 @@ const selectEdges              = state => selectMapData(state).edges;
 export const selectSchemes            = state => selectMapData(state).schemes;
 export const selectActiveSchemeIndex  = state => findIndex(propEq('id', selectSchemeId(state)))(selectSchemes(state));
 export const selectSchemeId           = state => selectSchemes(state)[state.map.buildingSchemeIndex].id;
-export const selectElementsBySchemeId = (state, schemeId) => values(selectMapData(state).elements)
-    .filter(element => !!element.coordinates && element.buildingSchemeId === schemeId);
-export const selectElements           = state => selectElementsBySchemeId(state, selectSchemeId(state));
-export const selectPointById          = points => pointId => points[pointId];
-export const selectPoints             = (state) => selectMapData(state).points;
+export const selectElementsBySchemeId = (state, schemeId) => {
+
+    return values(selectMapData(state).elements)
+        .filter(element => !!element.coordinates && element.buildingSchemeId === schemeId)
+};
+
+export const selectElements  = (state, fromScreen, navigationProps) => {
+    // TODO: переделать когда будем хранить в точке ее привязку к комнате
+    // сейчас будет работать только для сотрудников
+    const pointId = selectDestinationPointId(state, fromScreen, navigationProps);
+
+    return selectElementsBySchemeId(state, selectSchemeId(state))
+        .map(element => {
+            return {
+                ...element,
+                isActive: element.pointId === pointId
+            }
+        });
+};
+export const selectPointById = points => pointId => points[pointId];
+export const selectPoints    = (state) => selectMapData(state).points;
 
 const selectDestinationPointId = (state, fromScreen, navigationProps) => {
     switch (fromScreen) {
@@ -37,8 +53,9 @@ const selectDestinationPointId = (state, fromScreen, navigationProps) => {
             return null;
     }
 };
-const addVertex                = (vertex, all) => ({ ...(all || {}), [vertex]: 1 });
-const toGraph                  = (vertices, relation) => {
+
+const addVertex               = (vertex, all) => ({ ...(all || {}), [vertex]: 1 });
+const toGraph                 = (vertices, relation) => {
     const vertex_1 = relation[0];
     const vertex_2 = relation[1];
 
@@ -48,14 +65,14 @@ const toGraph                  = (vertices, relation) => {
         [vertex_2]: addVertex(vertex_1, vertices[vertex_2])
     }
 };
-export const mapGraphSelector  = createSelector(
+export const mapGraphSelector = createSelector(
     selectEdges,
     (edges) => {
 
         return new Graph(reduce(toGraph, {}, edges))
     }
 );
-const routePointsSelector      = createSelector(
+const routePointsSelector     = createSelector(
     [
         mapGraphSelector,
         selectDevicePointId,
@@ -75,8 +92,8 @@ const routePointsSelector      = createSelector(
         return groupBy(prop('buildingSchemeId'))(pointsRoutes);
     }
 );
-const pointToString            = point => `${ point.x },${ point.y }`;
-export const selectRoute       = createSelector(
+const pointToString           = point => `${ point.x },${ point.y }`;
+export const selectRoute      = createSelector(
     [
         routePointsSelector,
         selectSchemeId

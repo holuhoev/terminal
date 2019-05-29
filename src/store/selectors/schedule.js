@@ -5,7 +5,8 @@ export const selectLessons = state => state.schedule.lessons;
 
 export const selectPersonLessons = (state, personId) => selectLessons(state).data[personId];
 
-const selectPersonRoomId = (state, personId) => {
+export const selectPersonRoomId = (state, personId) => {
+    // todo: если нет занятий, то брать из сущности Person.
     const personLessons = selectPersonLessons(state, personId);
 
     return listNotEmpty(personLessons) ? personLessons[0].auditoriumId : null;

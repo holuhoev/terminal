@@ -2,6 +2,7 @@ import { values, map, includes, filter } from "ramda";
 
 import { SERVICE_TYPE_LABELS } from "../reducers/services";
 import { selectBuildingNameById } from "./building";
+import { selectRoomByPointId } from "./rooms";
 
 
 const selectServiceStore = state => state.services;
