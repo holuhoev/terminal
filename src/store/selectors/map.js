@@ -22,16 +22,22 @@ export const selectElementsBySchemeId = (state, schemeId) => {
         .filter(element => !!element.coordinates && element.buildingSchemeId === schemeId)
 };
 
-export const selectElements  = (state, fromScreen, navigationProps) => {
-    // TODO: переделать когда будем хранить в точке ее привязку к комнате
-    // сейчас будет работать только для сотрудников
+const selectDestinationElementId = (state, fromScreen, navigationProps) => {
     const pointId = selectDestinationPointId(state, fromScreen, navigationProps);
+    const point   = selectPointById(selectPoints(state))(pointId);
+
+    return point ? point.schemeElementId : null;
+};
+
+export const selectElements  = (state, fromScreen, navigationProps) => {
+    const destinationElementId = selectDestinationElementId(state, fromScreen, navigationProps);
+    console.log(destinationElementId);
 
     return selectElementsBySchemeId(state, selectSchemeId(state))
         .map(element => {
             return {
                 ...element,
-                isActive: element.pointId === pointId
+                isActive: element.id === destinationElementId
             }
         });
 };
@@ -120,7 +126,7 @@ const routeStairsPointsSelector     = createSelector(
     ],
     (routePointsGrouped, startSchemeId) => {
 
-        if (!routePointsGrouped) {
+        if (!routePointsGrouped || values(routePointsGrouped).length < 2) {
             return {}
         }
 

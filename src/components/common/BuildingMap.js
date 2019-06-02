@@ -54,7 +54,7 @@ function Element(item) {
             />
             { isElementHasLabel(item) && (
                 <Text
-                    fill={ "#507b8f" }
+                    fill={ item.isActive ? "#FFF" :"#507b8f" }
                     x={ item.textCentroid[0] }
                     y={ item.textCentroid[1] }
                     fontSize="8"

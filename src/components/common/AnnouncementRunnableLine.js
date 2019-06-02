@@ -28,9 +28,9 @@ class AnnouncementRunnableLine extends Component {
                     bounce
                     // scroll
                     repeatSpacer={ 50 }
-                    marqueeDelay={ 8000 }
+                    marqueeDelay={ 3000 }
                 >
-                    { announcements.map(item => item.content + "\t\t") }
+                    { announcements.map(item => item.title + "\t\t\t\t\t\t\t\t\t\t") }
                 </TextTicker>
             </View>
         );

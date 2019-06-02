@@ -68,27 +68,28 @@ const reducer = (state = initialState, action = {}) => {
 const mapFromServer = data => {
     const { points, edges, elements, schemes } = data;
 
-    const getFloor = getFloorByScheme(schemes);
+    const getFloor    = getFloorByScheme(schemes);
+    const elementsObj = indexBy(prop('id'), map(mapElement(getFloor), elements));
 
     return {
-        points:   indexBy(prop('id'), map(mapPoint(getFloor), points)),
-        elements: indexBy(prop('id'), map(mapElement(getFloor), elements)),
+        points:   indexBy(prop('id'), map(mapPoint(elementsObj), points)),
+        elements: elementsObj,
         edges:    map(mapEdge, edges),
         schemes:  schemes
     }
 };
 
-const mapPoint = getFloor => point => {
-    const { buildingSchemeId, x, y, id } = point;
+const mapPoint = elementsObj => point => {
+    const { schemeElementId, x, y, id } = point;
 
-    const floor = getFloor(buildingSchemeId);
+    const buildingSchemeId = elementsObj[schemeElementId] ? elementsObj[schemeElementId].buildingSchemeId : null;
 
     return {
         x,
         y,
         id,
-        floor,
-        buildingSchemeId
+        buildingSchemeId,
+        schemeElementId
     }
 };
 
