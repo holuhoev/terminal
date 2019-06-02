@@ -92,8 +92,9 @@ class UnitListScreen extends Component {
     };
 
 
-    onRouteClick = (unitId) => {
+    onRouteClick = (unitId, title) => {
         this.props.navigation.navigate(ROUTES.BuildingMap, {
+            title,
             params: {
                 unitId
             },

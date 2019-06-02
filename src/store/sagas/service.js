@@ -12,9 +12,9 @@ export default function* main() {
     yield takeLatest(LOAD, fetchServices)
 }
 
-function* fetchServices() {
+function* fetchServices(action) {
     try {
-        const serviceList = yield call(getServices);
+        const serviceList = yield call(getServices, action.payload);
 
         yield put({ type: LOAD_SUCCESS, payload: serviceList })
     } catch (error) {

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Button, ListItem } from "react-native-elements";
-import { Text, StyleSheet, View } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 
 export default class UnitListItem extends React.Component {
     render() {
@@ -20,7 +20,7 @@ export default class UnitListItem extends React.Component {
                     <Button
                         title={ "Местоположение" }
                         type={ 'outline' }
-                        onPress={ () => getRoute(id) }
+                        onPress={ () => getRoute(id,title) }
                     />
                 ) }
             />

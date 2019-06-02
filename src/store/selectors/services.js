@@ -36,3 +36,5 @@ export const filterService = searchQuery => service => {
 export const selectServiceById = (state, id) => selectServiceStore(state).data[id];
 
 export const selectServicePointId = (state, id) => selectServiceById(state, id) ? selectServiceById(state, id).pointId : null;
+
+export const selectServiceTitle = (state,id) => selectServiceById(state, id) ? selectServiceById(state, id).title : null;

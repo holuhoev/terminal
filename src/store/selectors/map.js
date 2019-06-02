@@ -5,8 +5,9 @@ import Graph from "../../utils/graph";
 import { selectDevicePointId } from "./device";
 import { selectPersonPointId, selectPersonRoom, selectPersonRoomId } from "./schedule";
 import { ROUTES } from "../../utils/navigation";
-import { selectUnitById, selectUnitPointId, selectUnitSchemeElementId } from "./units";
-import { selectServicePointId, selectServiceRoomId } from "./services";
+import { selectUnitById, selectUnitPointId, selectUnitSchemeElementId, selectUnitTitle } from "./units";
+import { selectServicePointId, selectServiceRoomId, selectServiceTitle } from "./services";
+import { selectPersonFio } from "./persons";
 
 
 const selectMapData            = state => state.map.data;
@@ -148,9 +149,3 @@ export const selectRouteStairsPoint = createSelector(
         return routeStairsPoint[schemeId];
     }
 );
-
-
-
-
-
-

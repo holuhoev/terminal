@@ -14,11 +14,9 @@ import SchemeMenu from "../common/SchemeMenu";
 
 class BuildingMapScreen extends React.Component {
 
-
-    static navigationOptions = () => {
-
+    static navigationOptions = ({ navigation }) => {
         return {
-            title: 'Схема здания'
+            title: navigation.getParam('title', 'Схема здания'),
         };
     };
 
@@ -43,7 +41,7 @@ const mapStateToProps = (state, ownProps) => {
     const params     = ownProps.navigation.getParam("params", {});
 
     return {
-        elements:    selectElements(state,fromScreen, params),
+        elements:    selectElements(state, fromScreen, params),
         route:       selectRoute(state, fromScreen, params),
         stairsPoint: selectRouteStairsPoint(state, fromScreen, params)
     }

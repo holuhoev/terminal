@@ -30,8 +30,8 @@ class ServiceListScreen extends Component {
 
 
     componentDidMount() {
-        const { loadServices, searchQuery } = this.props;
-        loadServices(searchQuery);
+        const { loadServices , buildingId} = this.props;
+        loadServices(buildingId);
 
     }
 
@@ -91,11 +91,11 @@ class ServiceListScreen extends Component {
     };
 
 
-    onRouteClick = (serviceId) => {
-        // TODO: передавать pointId
+    onRouteClick = (serviceId,title) => {
         this.props.navigation.navigate(ROUTES.BuildingMap, {
+            title,
             params: {
-                serviceId
+                serviceId,
             },
             from:   ROUTES.ServiceList
         })
@@ -110,11 +110,6 @@ class ServiceListScreen extends Component {
             />
         )
     };
-
-    loadServices = () => {
-
-    };
-
 
     get isDataEmpty() {
         const { data } = this.props;
@@ -155,7 +150,8 @@ const mapStateToProps = state => ({
     loading:     state.services.loading,
     data:        selectServiceList(state),
     searchQuery: state.services.searchQuery,
-    error:       state.services.error
+    error:       state.services.error,
+    buildingId : state.device.buildingId
 });
 
 

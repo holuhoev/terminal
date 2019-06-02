@@ -41,7 +41,7 @@ class PersonListItem extends React.PureComponent {
                     <Button
                         title={ "Местоположение" }
                         type={ 'outline' }
-                        onPress={ () => getRoute(id) }
+                        onPress={ () => getRoute(id, fio) }
                     />
                 ) }
             />
@@ -53,7 +53,7 @@ class PersonListItem extends React.PureComponent {
 const styles = StyleSheet.create({
     fioText: {
         fontWeight: 'bold',
-        color:'black'
+        color:      'black'
     }
 });
 

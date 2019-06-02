@@ -1,3 +1,5 @@
+import { indexBy, prop } from "ramda";
+
 export const selectCurrentPage = state => selectPersonStore(state).page;
 
 export const selectPersons = state => {
@@ -23,6 +25,11 @@ export const selectPersons = state => {
                            })
         }
     })
+};
+
+export const selectPersonFio = (state, id) => {
+    const personsObj = indexBy(prop('id'), selectPersons(state));
+    return personsObj[id] ? personsObj[id].fio : null
 };
 
 export const selectPersonStore = state => state.persons;

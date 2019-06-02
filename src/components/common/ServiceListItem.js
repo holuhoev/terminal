@@ -20,7 +20,7 @@ export default class ServiceListItem extends React.Component {
                     <Button
                         title={ "Местоположение" }
                         type={ 'outline' }
-                        onPress={ () => getRoute(id) }
+                        onPress={ () => getRoute(id,title) }
                     />
                 ) }
             />

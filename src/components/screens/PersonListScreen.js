@@ -13,7 +13,7 @@ import { changePersonsSearchQuery, loadMorePersons, loadPersons } from "../../st
 import PersonListItem from "../common/PersonListItem";
 import { selectPersons } from "../../store/selectors/persons";
 import { WebView } from "react-native-webview";
-import { BUILDING_ROUTE_TO, ROUTES } from "../../utils/navigation";
+import {  ROUTES } from "../../utils/navigation";
 import { loadPersonNowLesson } from "../../store/reducers/schedule";
 
 
@@ -90,9 +90,10 @@ class PersonListScreen extends Component {
         this.setState({ isWebViewOpened: true, url: url });
     };
 
-    onRouteClick = (personId) => {
+    onRouteClick = (personId,fio) => {
         this.props.loadPersonNowLesson(personId);
         this.props.navigation.navigate(ROUTES.BuildingMap, {
+            title: fio,
             params: {
                 personId
             },
