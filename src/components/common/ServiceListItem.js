@@ -14,6 +14,7 @@ export default class ServiceListItem extends React.Component {
                     </Text>
                 }
                 subtitle={ `${ typeLabel } ${ floor ? floor + ' этаж' : '' }` }
+                subtitleStyle={ { color: 'black' } }
                 containerStyle={ { borderBottomWidth: 0 } }
                 rightElement={ (
                     <Button
@@ -29,6 +30,7 @@ export default class ServiceListItem extends React.Component {
 
 const styles = StyleSheet.create({
     fioText: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color:      'black'
     }
 });

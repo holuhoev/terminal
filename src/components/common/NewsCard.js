@@ -10,6 +10,7 @@ class NewsCard extends React.PureComponent {
 
         return (
             <Card
+                titleStyle={{color:'black'}}
                 title={ title }
             >
                 <Image
@@ -31,7 +32,8 @@ class NewsCard extends React.PureComponent {
                 <Text
                     style={ {
                         paddingBottom: 10,
-                        fontSize:      16
+                        fontSize:      16,
+                        color:'black'
                     } }
                 >
                     { content }

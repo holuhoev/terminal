@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { Button, ListItem } from "react-native-elements";
 import { Text, StyleSheet, View } from 'react-native';
 
-export default class UnitListItem extends React.Component{
+export default class UnitListItem extends React.Component {
     render() {
         const { id, title, description, getRoute } = this.props;
 
@@ -13,7 +13,8 @@ export default class UnitListItem extends React.Component{
                         { title }
                     </Text>
                 }
-                subtitle={ description}
+                subtitle={ description }
+                subtitleStyle={ { color: 'black' } }
                 containerStyle={ { borderBottomWidth: 0 } }
                 rightElement={ (
                     <Button
@@ -29,6 +30,7 @@ export default class UnitListItem extends React.Component{
 
 const styles = StyleSheet.create({
     fioText: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color:      'black'
     }
 });

@@ -33,6 +33,7 @@ class PersonListItem extends React.PureComponent {
                         }
                     </View>
                 ) }
+                subtitleStyle={ { color: 'black' } }
                 leftAvatar={ { source: { uri: avatarUrl } } }
                 containerStyle={ { borderBottomWidth: 0 } }
                 chevron
@@ -51,7 +52,8 @@ class PersonListItem extends React.PureComponent {
 
 const styles = StyleSheet.create({
     fioText: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color:'black'
     }
 });
 

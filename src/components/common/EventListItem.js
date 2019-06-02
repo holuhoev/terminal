@@ -25,8 +25,10 @@ class EventListItem extends React.PureComponent {
                 <Text
                     style={ {
                         paddingBottom: 5,
+                        color:         'black'
                     } }
                     h4
+                    onPress={ () => openUrl(url) }
                 >
                     { title }
                 </Text>
@@ -76,17 +78,6 @@ class EventListItem extends React.PureComponent {
                         justifyContent: 'space-between'
                     } }
                 >
-                    <Button
-                        onPress={ () => openUrl(url) }
-                        type='clear'
-                        icon={
-                            <Icon
-                                name={ "open-in-browser" }
-                                color={ '#04BAEE' }
-                                size={ 24 }
-                            />
-                        }
-                    />
                     <Text>
                         { `${ time } ` }
                     </Text>
