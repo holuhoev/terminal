@@ -133,7 +133,7 @@ class MainMenuScreen extends Component {
                         title={ 'Мое местоположение' }
                     />
                 </View>
-                <AnnouncementRunnableLine/>
+                {/*<AnnouncementRunnableLine/>*/}
             </ImageBackground>
         );
     }

@@ -32,6 +32,7 @@ class BuildingMapScreen extends React.Component {
                     elements={ elements }
                     route={ route }
                     stairsPoint={ stairsPoint }
+                    servicePoints={ servicePoints }
                 />
             </View>
         )

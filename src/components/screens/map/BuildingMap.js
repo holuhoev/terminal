@@ -3,6 +3,7 @@ import PinchZoomView from "react-native-pinch-zoom-view";
 import Svg, { Circle, ClipPath, G, Line, Polygon, Polyline, Text } from "react-native-svg";
 
 import { isElementIsStair, MAP_ELEMENTS_TYPES } from "../../../store/reducers/map";
+import ServiceIcon from "./ServiceIcon";
 
 
 const isElementHasLabel = element => {
@@ -54,7 +55,7 @@ function Element(item) {
             />
             { isElementHasLabel(item) && (
                 <Text
-                    fill={ item.isActive ? "#FFF" :"#507b8f" }
+                    fill={ item.isActive ? "#FFF" : "#507b8f" }
                     x={ item.textCentroid[0] }
                     y={ item.textCentroid[1] }
                     fontSize="8"
@@ -73,7 +74,7 @@ function Element(item) {
 class BuildingMap extends React.Component {
 
     render() {
-        const { elements, route, stairsPoint } = this.props;
+        const { elements, route, stairsPoint, servicePoints } = this.props;
 
         return (
 
@@ -89,6 +90,14 @@ class BuildingMap extends React.Component {
                             <Element
                                 { ...item }
                                 key={ i.toString() }
+                            />
+                        ))
+                    }
+                    {
+                        servicePoints.map((point, i) => (
+                            <ServiceIcon
+                                { ...point }
+                                key={ i }
                             />
                         ))
                     }
