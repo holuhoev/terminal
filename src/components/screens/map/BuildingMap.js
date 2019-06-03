@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
 import PinchZoomView from "react-native-pinch-zoom-view";
-import Svg, { Circle, ClipPath, G, Line, Polygon, Polyline, Rect, Text } from "react-native-svg";
+import Svg, { Circle, ClipPath, G, Line, Polygon, Polyline, Text } from "react-native-svg";
 
-import { isElementIsStair, MAP_ELEMENTS_TYPES } from "../../store/reducers/map";
+import { isElementIsStair, MAP_ELEMENTS_TYPES } from "../../../store/reducers/map";
 
 
 const isElementHasLabel = element => {

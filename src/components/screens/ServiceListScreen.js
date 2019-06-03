@@ -29,13 +29,6 @@ class ServiceListScreen extends Component {
     };
 
 
-    componentDidMount() {
-        const { loadServices , buildingId} = this.props;
-        loadServices(buildingId);
-
-    }
-
-
     renderSeparator = () => {
         return (
             <View
@@ -156,8 +149,7 @@ const mapStateToProps = state => ({
 
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    changeServicesSearchQuery,
-    loadServices,
+    changeServicesSearchQuery
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ServiceListScreen);

@@ -1,8 +1,8 @@
-import { values, map, includes, filter } from "ramda";
+import { values, map, includes, filter, indexBy ,prop} from "ramda";
 
 import { SERVICE_TYPE_LABELS } from "../reducers/services";
 import { selectBuildingNameById } from "./building";
-import { selectRoomByPointId } from "./rooms";
+import { hasPoint } from "../../utils/common";
 
 
 const selectServiceStore = state => state.services;
@@ -37,4 +37,8 @@ export const selectServiceById = (state, id) => selectServiceStore(state).data[i
 
 export const selectServicePointId = (state, id) => selectServiceById(state, id) ? selectServiceById(state, id).pointId : null;
 
-export const selectServiceTitle = (state,id) => selectServiceById(state, id) ? selectServiceById(state, id).title : null;
+export const selectServicesForMap = state => {
+    const services = values(selectServiceStore(state).data);
+
+    return map(prop('type'), indexBy(prop('pointId'), filter(hasPoint, services)));
+};

@@ -3,13 +3,14 @@ import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 
-import BuildingMap from "../common/BuildingMap";
+import BuildingMap from "./BuildingMap";
 import {
+    schemeServicesSelector,
     selectElements,
     selectRoute,
     selectRouteStairsPoint
-} from "../../store/selectors/map";
-import SchemeMenu from "../common/SchemeMenu";
+} from "../../../store/selectors/map";
+import SchemeMenu from "../../common/SchemeMenu";
 
 
 class BuildingMapScreen extends React.Component {
@@ -21,7 +22,8 @@ class BuildingMapScreen extends React.Component {
     };
 
     render() {
-        const { elements, route, stairsPoint } = this.props;
+        const { elements, route, stairsPoint, servicePoints } = this.props;
+        console.log(servicePoints);
 
         return (
             <View style={ { flex: 1 } }>
@@ -41,9 +43,10 @@ const mapStateToProps = (state, ownProps) => {
     const params     = ownProps.navigation.getParam("params", {});
 
     return {
-        elements:    selectElements(state, fromScreen, params),
-        route:       selectRoute(state, fromScreen, params),
-        stairsPoint: selectRouteStairsPoint(state, fromScreen, params)
+        elements:      selectElements(state, fromScreen, params),
+        route:         selectRoute(state, fromScreen, params),
+        stairsPoint:   selectRouteStairsPoint(state, fromScreen, params),
+        servicePoints: schemeServicesSelector(state)
     }
 };
 

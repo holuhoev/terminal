@@ -4,7 +4,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import PersonListScreen from "./screens/PersonListScreen";
 import NewsListScreen from "./screens/NewsListScreen";
 import EventsScreen from "./screens/EventsScreen";
-import BuildingMapScreen from "./screens/BuildingMapScreen";
+import BuildingMapScreen from "./screens/map/BuildingMapScreen";
 import MainMenuScreen from "./screens/MainMenuScreen";
 import ServiceListScreen from "./screens/ServiceListScreen";
 import UnitListScreen from "./screens/UnitListScreen";

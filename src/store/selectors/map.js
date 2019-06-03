@@ -1,13 +1,12 @@
-import { reduce, values, findIndex, propEq, groupBy, prop, mapObjIndexed, last } from "ramda";
+import { reduce, values, findIndex, propEq, groupBy, prop, map, mapObjIndexed, filter, last } from "ramda";
 import { createSelector } from 'reselect'
 
 import Graph from "../../utils/graph";
 import { selectDevicePointId } from "./device";
-import { selectPersonPointId, selectPersonRoom, selectPersonRoomId } from "./schedule";
+import { selectPersonPointId } from "./schedule";
 import { ROUTES } from "../../utils/navigation";
-import { selectUnitById, selectUnitPointId, selectUnitSchemeElementId, selectUnitTitle } from "./units";
-import { selectServicePointId, selectServiceRoomId, selectServiceTitle } from "./services";
-import { selectPersonFio } from "./persons";
+import { selectUnitPointId, } from "./units";
+import { selectServicePointId, selectServicesForMap } from "./services";
 
 
 const selectMapData            = state => state.map.data;
@@ -147,5 +146,28 @@ export const selectRouteStairsPoint = createSelector(
     (routeStairsPoint, schemeId) => {
 
         return routeStairsPoint[schemeId];
+    }
+);
+
+export const schemeServicesSelector = createSelector(
+    [
+        selectPoints,
+        selectServicesForMap,
+        selectSchemeId
+    ],
+    (points, services, schemeId) => {
+        const pointList      = values(points);
+        const isServicePoint = p => p.buildingSchemeId === schemeId && !!p.serviceType;
+
+        console.log(services);
+        console.log(pointList);
+
+        return filter(isServicePoint, map(point => {
+
+            return {
+                ...point,
+                serviceType: services[point.id]
+            }
+        }, pointList));
     }
 );
