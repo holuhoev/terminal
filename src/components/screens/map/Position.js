@@ -3,9 +3,8 @@ import { G, Path } from "react-native-svg";
 
 
 function Position({ x, y }) {
-    const coordinates = [x - 10, y - 10];
-    console.log(x);
-    console.log(y);
+    const coordinates = [x - 10, y - 20];
+
     return (
         <G
             fill={ "#ffa44e" }
