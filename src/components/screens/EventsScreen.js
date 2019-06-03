@@ -6,6 +6,7 @@ import { WebView } from 'react-native-webview';
 
 import { loadEvents } from "../../store/reducers/events";
 import EventListItem from "../common/EventListItem";
+import HomeIcon from "../common/HomeIcon";
 
 
 class EventsScreen extends React.Component {
@@ -19,10 +20,11 @@ class EventsScreen extends React.Component {
         }
     }
 
-    static navigationOptions = () => {
+    static navigationOptions = ({navigation}) => {
 
         return {
-            title: 'Мероприятия сегодня'
+            title: 'Мероприятия сегодня',
+            headerRight: (<HomeIcon onPress={ () => navigation.popToTop() }/>)
         };
     };
 

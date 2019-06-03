@@ -11,13 +11,15 @@ import {
     selectRouteStairsPoint
 } from "../../../store/selectors/map";
 import SchemeMenu from "../../common/SchemeMenu";
+import HomeIcon from "../../common/HomeIcon";
 
 
 class BuildingMapScreen extends React.Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
-            title: navigation.getParam('title', 'Схема здания'),
+            title:       navigation.getParam('title', 'Схема здания'),
+            headerRight: (<HomeIcon onPress={ () => navigation.popToTop() }/>)
         };
     };
 

@@ -13,6 +13,7 @@ import { changeUnitsSearchQuery, loadUnits } from "../../store/reducers/units";
 import UnitListItem from "../common/UnitListItem";
 import { selectUnitList } from "../../store/selectors/units";
 import { ROUTES } from "../../utils/navigation";
+import HomeIcon from "../common/HomeIcon";
 
 
 class UnitListScreen extends Component {
@@ -22,9 +23,10 @@ class UnitListScreen extends Component {
 
     }
 
-    static navigationOptions = () => {
+    static navigationOptions = ({navigation}) => {
         return {
-            title: 'Поиск по подразделениям'
+            title: 'Поиск по подразделениям',
+            headerRight: (<HomeIcon onPress={ () => navigation.popToTop() }/>)
         };
     };
 

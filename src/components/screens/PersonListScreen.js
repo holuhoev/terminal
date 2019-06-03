@@ -15,6 +15,7 @@ import { selectPersons } from "../../store/selectors/persons";
 import { WebView } from "react-native-webview";
 import {  ROUTES } from "../../utils/navigation";
 import { loadPersonNowLesson } from "../../store/reducers/schedule";
+import HomeIcon from "../common/HomeIcon";
 
 
 class PersonListScreen extends Component {
@@ -28,9 +29,10 @@ class PersonListScreen extends Component {
         }
     }
 
-    static navigationOptions = () => {
+    static navigationOptions = ({navigation}) => {
         return {
-            title: 'Поиск по преподавателям и сотрудникам'
+            title: 'Поиск по преподавателям и сотрудникам',
+            headerRight: (<HomeIcon onPress={ () => navigation.popToTop() }/>)
         };
     };
 

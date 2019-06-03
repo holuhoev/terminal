@@ -10,14 +10,16 @@ import { bindActionCreators } from "redux";
 import { loadNews } from "../../store/reducers/news";
 import NewsCard from "../common/NewsCard";
 import { selectNews } from "../../store/selectors/news";
+import HomeIcon from "../common/HomeIcon";
 
 
 class NewsListScreen extends React.Component {
 
-    static navigationOptions = () => {
+    static navigationOptions = ({navigation}) => {
 
         return {
-            title: 'Новости'
+            title: 'Новости',
+            headerRight: (<HomeIcon onPress={ () => navigation.popToTop() }/>)
         };
     };
 

@@ -13,6 +13,7 @@ import { changeServicesSearchQuery, loadServices } from "../../store/reducers/se
 import ServiceListItem from "../common/ServiceListItem";
 import { selectServiceList } from "../../store/selectors/services";
 import { ROUTES } from "../../utils/navigation";
+import HomeIcon from "../common/HomeIcon";
 
 
 class ServiceListScreen extends Component {
@@ -22,9 +23,10 @@ class ServiceListScreen extends Component {
 
     }
 
-    static navigationOptions = () => {
+    static navigationOptions = ({navigation}) => {
         return {
-            title: 'Поиск по услугам'
+            title: 'Поиск по услугам',
+            headerRight: (<HomeIcon onPress={ () => navigation.popToTop() }/>)
         };
     };
 
