@@ -1,5 +1,5 @@
 import React from "react";
-import Svg, { G, Path } from "react-native-svg";
+import { G, Path } from "react-native-svg";
 
 let iconColor = "#26c2ed";
 

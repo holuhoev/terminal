@@ -31,7 +31,6 @@ const selectDestinationElementId = (state, fromScreen, navigationProps) => {
 
 export const selectElements  = (state, fromScreen, navigationProps) => {
     const destinationElementId = selectDestinationElementId(state, fromScreen, navigationProps);
-    console.log(destinationElementId);
 
     return selectElementsBySchemeId(state, selectSchemeId(state))
         .map(element => {
@@ -41,7 +40,7 @@ export const selectElements  = (state, fromScreen, navigationProps) => {
             }
         });
 };
-export const selectPointById = points => pointId => points[pointId];
+export const selectPointById = points => id => points[id];
 export const selectPoints    = (state) => selectMapData(state).points;
 
 const selectDestinationPointId = (state, fromScreen, navigationProps) => {
@@ -159,9 +158,6 @@ export const schemeServicesSelector = createSelector(
         const pointList      = values(points);
         const isServicePoint = p => p.buildingSchemeId === schemeId && !!p.serviceType;
 
-        console.log(services);
-        console.log(pointList);
-
         return filter(isServicePoint, map(point => {
 
             return {
@@ -171,3 +167,9 @@ export const schemeServicesSelector = createSelector(
         }, pointList));
     }
 );
+
+export const selectPositionPoint = state => {
+    const positionPointId = selectDevicePointId(state);
+
+    return selectPointById(selectPoints(state))(positionPointId)
+};

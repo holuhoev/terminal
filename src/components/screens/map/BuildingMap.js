@@ -4,6 +4,7 @@ import Svg, { Circle, ClipPath, G, Line, Polygon, Polyline, Text } from "react-n
 
 import { isElementIsStair, MAP_ELEMENTS_TYPES } from "../../../store/reducers/map";
 import ServiceIcon from "./ServiceIcon";
+import Position from "./Position";
 
 
 const isElementHasLabel = element => {
@@ -74,7 +75,7 @@ function Element(item) {
 class BuildingMap extends React.Component {
 
     render() {
-        const { elements, route, stairsPoint, servicePoints } = this.props;
+        const { elements, route, stairsPoint, servicePoints, positionPoint } = this.props;
 
         return (
 
@@ -118,6 +119,11 @@ class BuildingMap extends React.Component {
                             stroke={ "#274fed" }
                             fill={ "none" }
                             strokeWidth={ "2" }
+                        />
+                    ) }
+                    { positionPoint && (
+                        <Position
+                            { ...positionPoint }
                         />
                     ) }
                 </Svg>

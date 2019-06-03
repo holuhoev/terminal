@@ -6,7 +6,7 @@ import { View } from 'react-native';
 import BuildingMap from "./BuildingMap";
 import {
     schemeServicesSelector,
-    selectElements,
+    selectElements, selectPositionPoint,
     selectRoute,
     selectRouteStairsPoint
 } from "../../../store/selectors/map";
@@ -22,8 +22,7 @@ class BuildingMapScreen extends React.Component {
     };
 
     render() {
-        const { elements, route, stairsPoint, servicePoints } = this.props;
-        console.log(servicePoints);
+        const { elements, route, stairsPoint, servicePoints, positionPoint } = this.props;
 
         return (
             <View style={ { flex: 1 } }>
@@ -33,6 +32,7 @@ class BuildingMapScreen extends React.Component {
                     route={ route }
                     stairsPoint={ stairsPoint }
                     servicePoints={ servicePoints }
+                    positionPoint={ positionPoint }
                 />
             </View>
         )
@@ -47,7 +47,8 @@ const mapStateToProps = (state, ownProps) => {
         elements:      selectElements(state, fromScreen, params),
         route:         selectRoute(state, fromScreen, params),
         stairsPoint:   selectRouteStairsPoint(state, fromScreen, params),
-        servicePoints: schemeServicesSelector(state)
+        servicePoints: schemeServicesSelector(state),
+        positionPoint: selectPositionPoint(state)
     }
 };
 
