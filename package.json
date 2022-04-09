@@ -14,7 +14,7 @@
     "@mapbox/polylabel": "^1.0.2",
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "ramda": "^0.26.1",
     "react": "16.8.3",
     "react-native": "0.59.3",
